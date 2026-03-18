@@ -29,6 +29,476 @@
     line-height: 1.7;
   }
 
+  /* ── SCROLL REVEAL ── */
+  .reveal {
+    opacity: 0;
+    transform: translateY(32px);
+    transition: opacity 0.7s cubic-bezier(.22,.68,0,1.2), transform 0.7s cubic-bezier(.22,.68,0,1.2);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-40px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
+  }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+  /* ── LIVE TICKER ── */
+  .war-ticker {
+    background: var(--red);
+    color: #fff;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 7px 0;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    position: relative;
+  }
+  .ticker-inner {
+    display: inline-block;
+    animation: ticker-scroll 50s linear infinite;
+    padding-left: 100%;
+  }
+  @keyframes ticker-scroll {
+    0%   { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .ticker-sep { margin: 0 28px; opacity: 0.5; }
+
+  /* ── HERO PARTICLE CANVAS ── */
+  #hero-canvas {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.25;
+  }
+
+  /* ── ANIMATED STAT COUNTERS ── */
+  .hero-stat {
+    background: #111;
+    padding: 20px 18px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .hero-stat::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(192,57,43,0);
+    transition: background 0.3s;
+  }
+  .hero-stat:hover::after { background: rgba(192,57,43,0.08); }
+
+  /* ── COMPANY CARD HOVER ── */
+  .company-card {
+    background: var(--paper);
+    padding: 28px 24px;
+    position: relative;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .company-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+    z-index: 2;
+  }
+  .company-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 2px;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s ease;
+  }
+  .company-card.usa::after { background: var(--usa-blue); }
+  .company-card.israel::after { background: var(--israel-blue); }
+  .company-card.iran::after { background: var(--iran-green); }
+  .company-card:hover::after { transform: scaleX(1); }
+
+  /* ── ANIMATED PROGRESS BARS ── */
+  .prog-bar-wrap {
+    margin: 6px 0 2px;
+    height: 4px;
+    background: rgba(0,0,0,0.08);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .prog-bar {
+    height: 100%;
+    border-radius: 2px;
+    width: 0;
+    transition: width 1.4s cubic-bezier(.22,.68,0,1.2);
+  }
+
+  /* ── GLOWING TIMELINE ── */
+  .timeline {
+    position: relative;
+    padding-left: 30px;
+    margin-top: 20px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px; top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--red), var(--gold), var(--red));
+    animation: pulse-line 3s ease-in-out infinite;
+  }
+  @keyframes pulse-line {
+    0%,100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 28px;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -26px; top: 6px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--red);
+    border: 2px solid var(--paper);
+    box-shadow: 0 0 0 2px var(--red);
+    animation: pulse-dot 2s ease-in-out infinite;
+    animation-delay: calc(var(--i, 0) * 0.3s);
+  }
+  @keyframes pulse-dot {
+    0%,100% { box-shadow: 0 0 0 2px var(--red); }
+    50% { box-shadow: 0 0 0 4px rgba(192,57,43,0.3), 0 0 12px rgba(192,57,43,0.5); }
+  }
+
+  /* ── SECTION FADE-IN STRIPE ── */
+  .section { position: relative; }
+  .section::before {
+    content: '';
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 0;
+    background: linear-gradient(to right, rgba(192,57,43,0.04), transparent);
+    transition: width 1s ease;
+    pointer-events: none;
+  }
+  .section.in-view::before { width: 100%; }
+
+  /* ── PULLQUOTE ENHANCED ── */
+  .pullquote {
+    border-left: 5px solid var(--red);
+    padding: 20px 30px;
+    margin: 40px 0;
+    background: rgba(0,0,0,0.03);
+    position: relative;
+    overflow: hidden;
+  }
+  .pullquote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .pullquote cite {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    display: block;
+    margin-top: 12px;
+  }
+  .pullquote::before {
+    content: '"';
+    position: absolute;
+    top: -20px; left: 10px;
+    font-family: 'Playfair Display', serif;
+    font-size: 8rem;
+    line-height: 1;
+    color: var(--red);
+    opacity: 0.07;
+    pointer-events: none;
+  }
+
+  /* ── WAR COST LIVE COUNTER ── */
+  .live-counter-wrap {
+    background: #0a0a0a;
+    border: 1px solid #222;
+    padding: 32px;
+    margin: 40px 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .live-counter-wrap::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center, rgba(192,57,43,0.05) 0%, transparent 70%);
+    animation: pulse-glow 3s ease-in-out infinite;
+  }
+  @keyframes pulse-glow {
+    0%,100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+  .live-counter-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 10px;
+  }
+  .live-counter-value {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: -0.02em;
+    line-height: 1;
+  }
+  .live-counter-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    color: #444;
+    margin-top: 8px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+  .blink {
+    animation: blink 1s step-end infinite;
+    color: var(--red);
+  }
+  @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0;} }
+
+  /* ── DRONE VS INTERCEPTOR ASYMMETRY ── */
+  .asymmetry-vis {
+    background: #0d0d0d;
+    padding: 36px 30px;
+    margin: 36px 0;
+    position: relative;
+    overflow: hidden;
+  }
+  .asym-title {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 24px;
+  }
+  .asym-row {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 20px;
+  }
+  .asym-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: #888;
+    width: 130px;
+    flex-shrink: 0;
+    letter-spacing: 0.08em;
+  }
+  .asym-bar-outer {
+    flex: 1;
+    height: 28px;
+    background: #1a1a1a;
+    position: relative;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+  .asym-bar-inner {
+    height: 100%;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    padding-left: 10px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    font-weight: 700;
+    white-space: nowrap;
+    width: 0;
+    transition: width 1.8s cubic-bezier(.22,.68,0,1.2);
+  }
+  .asym-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    color: #555;
+    width: 80px;
+    text-align: right;
+    flex-shrink: 0;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── RADAR / SPIDER CHART ── */
+  .radar-section {
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .radar-grid-wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: flex-start;
+    margin-top: 20px;
+  }
+  .radar-canvas-box {
+    flex: 0 0 auto;
+  }
+  .radar-legend-box {
+    flex: 1;
+    min-width: 220px;
+  }
+  .radar-legend-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.08em;
+    color: #ccc;
+  }
+  .radar-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ── OIL PRICE SPARKLINE ── */
+  .sparkline-wrap {
+    display: flex;
+    gap: 30px;
+    flex-wrap: wrap;
+    margin-top: 24px;
+  }
+  .sparkline-card {
+    background: #111;
+    padding: 20px;
+    flex: 1;
+    min-width: 200px;
+  }
+  .sparkline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+  }
+  .sparkline-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #555;
+  }
+  .sparkline-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--paper);
+  }
+  .sparkline-change {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+  }
+  .sparkline-change.up { color: #4caf50; }
+  .sparkline-change.down { color: var(--red); }
+
+  /* ── SECTION SECTION ── */
+  .new-section {
+    padding: 70px 5vw;
+    border-bottom: 1px solid var(--rule);
+    background: var(--ink);
+    color: var(--paper);
+  }
+  .new-section .section-title { color: var(--paper); }
+  .new-section .section-header { border-bottom-color: #333; }
+
+  /* ── SCROLLING MARQUEE DIVIDER ── */
+  .marquee-divider {
+    background: var(--red);
+    padding: 8px 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+  .marquee-inner {
+    display: inline-block;
+    animation: marquee 30s linear infinite;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+  }
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* ── COMPANY CARD GLOW ON HOVER ── */
+  .company-card.usa:hover::before { box-shadow: 4px 0 20px rgba(26,42,94,0.4); }
+  .company-card.israel:hover::before { box-shadow: 4px 0 20px rgba(0,63,135,0.4); }
+  .company-card.iran:hover::before { box-shadow: 4px 0 20px rgba(27,94,32,0.4); }
+
+  /* ── WATERFALL CHART STYLES ── */
+  .waterfall-wrap {
+    margin-top: 30px;
+    height: 380px;
+    position: relative;
+  }
+
+  /* ── COST CARD HOVER ── */
+  .cost-card {
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+  .cost-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  }
+  .cost-amount {
+    transition: color 0.3s;
+  }
+  .cost-card:hover .cost-amount {
+    color: var(--ink);
+  }
+
+  /* ── WEAPONS TABLE ROW HIGHLIGHT ── */
+  .weapons-table tbody tr {
+    transition: background 0.2s;
+    cursor: default;
+  }
+  .weapons-table tbody tr:hover td {
+    background: rgba(192,57,43,0.06) !important;
+  }
+
+  /* ── STOCK CARD HOVER ── */
+  .stock-card {
+    background: #111;
+    padding: 20px 16px;
+    transition: background 0.2s, transform 0.2s;
+    cursor: default;
+  }
+  .stock-card:hover {
+    background: #1a1a1a;
+    transform: scale(1.02);
+  }
+
+  /* ── WINNER CARD HOVER ── */
+  .winner-card {
+    transition: box-shadow 0.3s, transform 0.3s;
+  }
+  .winner-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.1);
+  }
+
   /* ── MASTHEAD ── */
   .masthead {
     background: var(--ink);
@@ -133,11 +603,6 @@
     border: 1px solid #333;
     max-width: 900px;
   }
-  .hero-stat {
-    background: #111;
-    padding: 20px 18px;
-    text-align: center;
-  }
   .hero-stat .val {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 1.6rem;
@@ -145,7 +610,9 @@
     color: var(--red);
     display: block;
     line-height: 1.1;
+    transition: color 0.3s;
   }
+  .hero-stat:hover .val { color: var(--gold); }
   .hero-stat .lbl {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.6rem;
@@ -190,10 +657,13 @@
     background: var(--rule);
     border: 2px solid var(--rule);
   }
-  .company-card {
-    background: var(--paper);
-    padding: 28px 24px;
-    position: relative;
+  /* ── COMPANY GRID & ACCENT BARS ── */
+  .company-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2px;
+    background: var(--rule);
+    border: 2px solid var(--rule);
   }
   .company-card::before {
     content: '';
@@ -299,10 +769,6 @@
     background: #333;
     margin-top: 30px;
   }
-  .stock-card {
-    background: #111;
-    padding: 20px 16px;
-  }
   .stock-ticker {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.8rem;
@@ -332,29 +798,6 @@
     margin-top: 8px;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-  }
-
-  /* ── PULLQUOTE ── */
-  .pullquote {
-    border-left: 5px solid var(--red);
-    padding: 20px 30px;
-    margin: 40px 0;
-    background: rgba(0,0,0,0.03);
-  }
-  .pullquote p {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.35rem;
-    font-style: italic;
-    line-height: 1.5;
-  }
-  .pullquote cite {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--smoke);
-    display: block;
-    margin-top: 12px;
   }
 
   /* ── COST TABLE ── */
@@ -442,33 +885,6 @@
     margin-bottom: 16px;
   }
 
-  /* ── TIMELINE BAR ── */
-  .timeline {
-    position: relative;
-    padding-left: 30px;
-    margin-top: 20px;
-  }
-  .timeline::before {
-    content: '';
-    position: absolute;
-    left: 6px; top: 0; bottom: 0;
-    width: 2px;
-    background: var(--rule);
-  }
-  .tl-item {
-    position: relative;
-    margin-bottom: 28px;
-  }
-  .tl-item::before {
-    content: '';
-    position: absolute;
-    left: -26px; top: 6px;
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--red);
-    border: 2px solid var(--paper);
-    box-shadow: 0 0 0 2px var(--red);
-  }
   .tl-date {
     font-family: 'IBM Plex Mono', monospace;
     font-size: 0.65rem;
@@ -610,8 +1026,16 @@
   <div class="edition">Special War Economics Edition · By Tony Montana</div>
 </header>
 
+<!-- WAR TICKER -->
+<div class="war-ticker">
+  <div class="ticker-inner">
+    <span>LMT $645 ↑+17%</span><span class="ticker-sep">◆</span><span>RTX $215 ↑+40% YTD</span><span class="ticker-sep">◆</span><span>NOC $733 ↑ TARGET $785</span><span class="ticker-sep">◆</span><span>GD $351 ↑ COMPELLING UPSIDE</span><span class="ticker-sep">◆</span><span>BA $209 ↑+2.5%</span><span class="ticker-sep">◆</span><span>ESLT $875 ↑+6.6%</span><span class="ticker-sep">◆</span><span>BRENT CRUDE $119.50/bbl ↑+70%</span><span class="ticker-sep">◆</span><span>U.S. WAR COST $12B+ · $1.43B/DAY</span><span class="ticker-sep">◆</span><span>500+ BALLISTIC MISSILES FIRED BY IRAN</span><span class="ticker-sep">◆</span><span>2,000+ DRONES EXPENDED</span><span class="ticker-sep">◆</span><span>GLOBAL DEFENSE MARKET $2.75T</span><span class="ticker-sep">◆</span><span>OPERATION EPIC FURY — DAY 18</span><span class="ticker-sep">◆</span><span>LMT $645 ↑+17%</span><span class="ticker-sep">◆</span><span>RTX $215 ↑+40% YTD</span><span class="ticker-sep">◆</span><span>NOC $733 ↑ TARGET $785</span><span class="ticker-sep">◆</span><span>GD $351 ↑ COMPELLING UPSIDE</span><span class="ticker-sep">◆</span><span>BA $209 ↑+2.5%</span><span class="ticker-sep">◆</span><span>ESLT $875 ↑+6.6%</span><span class="ticker-sep">◆</span><span>BRENT CRUDE $119.50/bbl ↑+70%</span><span class="ticker-sep">◆</span><span>U.S. WAR COST $12B+ · $1.43B/DAY</span><span class="ticker-sep">◆</span><span>500+ BALLISTIC MISSILES FIRED</span><span class="ticker-sep">◆</span><span>OPERATION EPIC FURY — DAY 18</span>
+  </div>
+</div>
+
 <!-- HERO -->
 <section class="hero">
+  <canvas id="hero-canvas"></canvas>
   <div class="hero-kicker">Operation Epic Fury · Global Defense Analysis</div>
   <h1>The <em>War Machine</em>:<br>Who Builds It, Who Profits,<br>Who Controls the World</h1>
   <p class="hero-sub">
@@ -629,12 +1053,12 @@
 
 <!-- SECTION I: AMERICAN TITANS -->
 <section class="section">
-  <div class="section-header">
-    <span class="section-number"> I</span>
+  <div class="section-header reveal">
+    <span class="section-number">§ I</span>
     <h2 class="section-title">The American Arsenal: Origins, Power & Ownership</h2>
   </div>
 
-  <div class="narrative" style="margin-bottom: 40px;">
+  <div class="narrative reveal" style="margin-bottom: 40px;">
     <p>The United States defense-industrial complex is the most powerful, most capitalized military supply chain in human history. Five prime contractors dominate: Lockheed Martin, RTX (Raytheon), Northrop Grumman, General Dynamics, and Boeing. Together, they absorb the lion's share of the Pentagon's $961.6 billion FY2026 budget request and provide the weapons now being expended over Iranian skies at approximately $1.43 billion per day.</p>
     <p>These are not merely contractors — they are the strategic backbone of American geopolitical power projection. When CENTCOM identifies a target in Tehran, the missiles that strike it are Tomahawks built by RTX. The aircraft delivering precision strikes are F-35s built by Lockheed Martin. The intelligence feeding those missions flows through Palantir's AI platforms. The war, in a very real sense, is a product demo.</p>
   </div>
@@ -774,16 +1198,28 @@
     <cite>— Core Media Editorial Analysis, March 2026</cite>
   </div>
 
+  <!-- LIVE WAR COST COUNTER -->
+  <div class="live-counter-wrap reveal">
+    <div class="live-counter-label">U.S. Direct Military Expenditure Since Feb 28, 2026</div>
+    <div class="live-counter-value" id="live-cost">$12,000,000,000</div>
+    <div class="live-counter-sub">Counting at $1.43 Billion / Day · $59.6 Million / Hour · $993,000 / Minute <span class="blink">█</span></div>
+  </div>
+
 </section>
+
+<!-- MARQUEE DIVIDER -->
+<div class="marquee-divider">
+  <div class="marquee-inner">F-35 LIGHTNING II &nbsp;·&nbsp; B-21 RAIDER &nbsp;·&nbsp; TOMAHAWK BGM-109 &nbsp;·&nbsp; ARROW-3 &nbsp;·&nbsp; IRON DOME &nbsp;·&nbsp; SHAHED-136 &nbsp;·&nbsp; THAAD &nbsp;·&nbsp; PAC-3 MSE &nbsp;·&nbsp; DAVID'S SLING &nbsp;·&nbsp; VIRGINIA-CLASS SSN &nbsp;·&nbsp; PALANTIR MAVEN &nbsp;·&nbsp; B-2 SPIRIT &nbsp;·&nbsp; F-35 LIGHTNING II &nbsp;·&nbsp; B-21 RAIDER &nbsp;·&nbsp; TOMAHAWK BGM-109 &nbsp;·&nbsp; ARROW-3 &nbsp;·&nbsp; IRON DOME &nbsp;·&nbsp; SHAHED-136 &nbsp;·&nbsp; THAAD &nbsp;·&nbsp; PAC-3 MSE &nbsp;·&nbsp; DAVID'S SLING &nbsp;·&nbsp; VIRGINIA-CLASS SSN &nbsp;·&nbsp; PALANTIR MAVEN &nbsp;·&nbsp; B-2 SPIRIT &nbsp;·&nbsp;</div>
+</div>
 
 <!-- SECTION II: WEAPONS DEPLOYED -->
 <section class="section">
-  <div class="section-header">
-    <span class="section-number"> II</span>
+  <div class="section-header reveal">
+    <span class="section-number">§ II</span>
     <h2 class="section-title">The Arsenal in Action: Weapons Deployed Over Iran</h2>
   </div>
-  <p style="margin-bottom: 24px; font-size: 0.9rem; color: #444;">U.S. Central Command (CENTCOM) has identified more than 20 weapons systems deployed in the Iran campaign, manufactured primarily by Lockheed, RTX, Boeing, and Northrop Grumman.</p>
-  <table class="weapons-table">
+  <p class="reveal" style="margin-bottom: 24px; font-size: 0.9rem; color: #444;">U.S. Central Command (CENTCOM) has identified more than 20 weapons systems deployed in the Iran campaign, manufactured primarily by Lockheed, RTX, Boeing, and Northrop Grumman.</p>
+  <table class="weapons-table reveal">
     <thead>
       <tr>
         <th>System</th>
@@ -811,12 +1247,56 @@
       <tr><td class="system-name">Palantir MAVEN / AIP</td><td>Palantir Technologies</td><td>AI Targeting Platform</td><td>Classified</td><td>Generating target lists; real-time battle management</td></tr>
     </tbody>
   </table>
+
+  <!-- DRONE VS INTERCEPTOR ASYMMETRY CHART -->
+  <div class="asymmetry-vis reveal" id="asym-vis">
+    <div class="asym-title">◆ The Economic Asymmetry of Modern Air War — Unit Cost Comparison</div>
+    <div class="asym-row">
+      <div class="asym-label">Shahed-136 Drone</div>
+      <div class="asym-bar-outer">
+        <div class="asym-bar-inner" data-width="0.95" style="background:linear-gradient(90deg,#c0392b,#e74c3c); color:#fff;">Iran's kamikaze drone</div>
+      </div>
+      <div class="asym-val" style="color:#e74c3c;">$20K</div>
+    </div>
+    <div class="asym-row">
+      <div class="asym-label">SM-6 Interceptor</div>
+      <div class="asym-bar-outer">
+        <div class="asym-bar-inner" data-width="20.5" style="background:linear-gradient(90deg,#1a3a6e,#2980b9); color:#fff;"></div>
+      </div>
+      <div class="asym-val" style="color:#2980b9;">$4.3M</div>
+    </div>
+    <div class="asym-row">
+      <div class="asym-label">PAC-3 MSE</div>
+      <div class="asym-bar-outer">
+        <div class="asym-bar-inner" data-width="25" style="background:linear-gradient(90deg,#1a3a6e,#3498db); color:#fff;"></div>
+      </div>
+      <div class="asym-val" style="color:#3498db;">$5M</div>
+    </div>
+    <div class="asym-row">
+      <div class="asym-label">Tomahawk</div>
+      <div class="asym-bar-outer">
+        <div class="asym-bar-inner" data-width="9.35" style="background:linear-gradient(90deg,#4a2080,#8e44ad); color:#fff;"></div>
+      </div>
+      <div class="asym-val" style="color:#8e44ad;">$1.87M</div>
+    </div>
+    <div class="asym-row">
+      <div class="asym-label">SM-3 Block IIA</div>
+      <div class="asym-bar-outer">
+        <div class="asym-bar-inner" data-width="100" style="background:linear-gradient(90deg,#7f1010,#c0392b); color:#fff;"></div>
+      </div>
+      <div class="asym-val" style="color:#c0392b;">$21M</div>
+    </div>
+    <div style="margin-top:20px; padding-top:16px; border-top:1px solid #222; font-family:'IBM Plex Mono',monospace; font-size:0.7rem; color:#555; letter-spacing:0.1em;">
+      COST ASYMMETRY RATIO — Shahed-136 vs SM-6 interceptor: <span style="color:#e74c3c; font-weight:700;">106:1</span> &nbsp;·&nbsp; The defining economic challenge of 21st-century air defense
+    </div>
+  </div>
+
 </section>
 
 <!-- SECTION III: STOCK PERFORMANCE -->
 <section class="section stock-section">
   <div class="section-header">
-    <span class="section-number"> III</span>
+    <span class="section-number">§ III</span>
     <h2 class="section-title">18 Days of War, 18 Days of Stock Gains</h2>
   </div>
 
@@ -893,7 +1373,7 @@
 <!-- SECTION IV: ISRAELI COMPANIES -->
 <section class="section">
   <div class="section-header">
-    <span class="section-number"> IV</span>
+    <span class="section-number">§ IV</span>
     <h2 class="section-title">The Israeli Arsenal: Small Nation, Global Edge</h2>
   </div>
 
@@ -993,7 +1473,7 @@
 <!-- SECTION V: IRAN'S DEFENSE INDUSTRIAL BASE -->
 <section class="section">
   <div class="section-header">
-    <span class="section-number"> V</span>
+    <span class="section-number">§ V</span>
     <h2 class="section-title">Iran's Arsenal: The Sanctioned War Machine</h2>
   </div>
 
@@ -1086,10 +1566,53 @@
   </div>
 </section>
 
+<!-- RADAR CAPABILITY SECTION -->
+<section class="section" style="background:var(--ink); color:var(--paper);">
+  <div class="section-header reveal" style="border-bottom-color:#333;">
+    <span class="section-number" style="color:var(--gold);">§ V.I</span>
+    <h2 class="section-title" style="color:var(--paper);">Military Capability Comparison: USA vs Israel vs Iran</h2>
+  </div>
+  <div class="radar-grid-wrap">
+    <div class="radar-canvas-box">
+      <canvas id="radarChart" width="360" height="360"></canvas>
+    </div>
+    <div class="radar-legend-box reveal">
+      <div style="margin-bottom:24px;">
+        <div class="radar-legend-item"><span class="radar-dot" style="background:#3a6fe8;"></span> United States</div>
+        <div class="radar-legend-item"><span class="radar-dot" style="background:#e8d03a;"></span> Israel</div>
+        <div class="radar-legend-item"><span class="radar-dot" style="background:#3ae87a;"></span> Iran</div>
+      </div>
+      <div style="font-family:'IBM Plex Mono',monospace; font-size:0.68rem; line-height:2; color:#777;">
+        <div style="color:#3a6fe8; margin-bottom:6px; font-weight:700; letter-spacing:0.15em;">UNITED STATES</div>
+        <div>Air Superiority: <span style="color:#ccc;">10/10</span></div>
+        <div>Missile Defense: <span style="color:#ccc;">10/10</span></div>
+        <div>Naval Power: <span style="color:#ccc;">10/10</span></div>
+        <div>Cyber / Intel: <span style="color:#ccc;">9/10</span></div>
+        <div>Drone Warfare: <span style="color:#ccc;">8/10</span></div>
+        <div>Ballistic Missiles: <span style="color:#ccc;">9/10</span></div>
+        <div style="color:#e8d03a; margin-top:14px; margin-bottom:6px; font-weight:700; letter-spacing:0.15em;">ISRAEL</div>
+        <div>Air Superiority: <span style="color:#ccc;">8/10</span></div>
+        <div>Missile Defense: <span style="color:#ccc;">9/10</span></div>
+        <div>Naval Power: <span style="color:#ccc;">5/10</span></div>
+        <div>Cyber / Intel: <span style="color:#ccc;">9/10</span></div>
+        <div>Drone Warfare: <span style="color:#ccc;">8/10</span></div>
+        <div>Ballistic Missiles: <span style="color:#ccc;">7/10</span></div>
+        <div style="color:#3ae87a; margin-top:14px; margin-bottom:6px; font-weight:700; letter-spacing:0.15em;">IRAN (PRE-STRIKES)</div>
+        <div>Air Superiority: <span style="color:#ccc;">3/10</span></div>
+        <div>Missile Defense: <span style="color:#ccc;">4/10</span></div>
+        <div>Naval Power: <span style="color:#ccc;">4/10</span></div>
+        <div>Cyber / Intel: <span style="color:#ccc;">5/10</span></div>
+        <div>Drone Warfare: <span style="color:#ccc;">8/10</span></div>
+        <div>Ballistic Missiles: <span style="color:#ccc;">6/10</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- SECTION VI: GLOBAL DEFENSE MARKET -->
 <section class="section">
-  <div class="section-header">
-    <span class="section-number"> VI</span>
+  <div class="section-header reveal">
+    <span class="section-number">§ VI</span>
     <h2 class="section-title">The Global Defense Market: Size, Demand & Trajectory</h2>
   </div>
 
@@ -1143,14 +1666,70 @@
   </div>
 </section>
 
+<!-- OIL & ENERGY IMPACT SECTION -->
+<section class="section" style="background:var(--ink); color:var(--paper);">
+  <div class="section-header reveal" style="border-bottom-color:#333;">
+    <span class="section-number" style="color:var(--gold);">§ VI.I</span>
+    <h2 class="section-title" style="color:var(--paper);">Energy & Commodity Market Shockwaves</h2>
+  </div>
+  <p class="reveal" style="font-family:'IBM Plex Mono',monospace; font-size:0.75rem; color:#888; letter-spacing:0.08em; margin-bottom:30px;">Brent crude surged 70% in under 96 hours as the Strait of Hormuz — conduit for 20% of world oil — came under direct threat. The ripple effect hit every commodity from natural gas to fertilizer.</p>
+  <div class="sparkline-wrap reveal">
+    <div class="sparkline-card">
+      <div class="sparkline-header">
+        <div class="sparkline-name">Brent Crude</div>
+        <div>
+          <div class="sparkline-val">$119.50</div>
+          <div class="sparkline-change up">↑ +$49.50 (+70%)</div>
+        </div>
+      </div>
+      <canvas id="spark1" height="60"></canvas>
+    </div>
+    <div class="sparkline-card">
+      <div class="sparkline-header">
+        <div class="sparkline-name">WTI Crude</div>
+        <div>
+          <div class="sparkline-val">$114.20</div>
+          <div class="sparkline-change up">↑ +$45.20 (+65%)</div>
+        </div>
+      </div>
+      <canvas id="spark2" height="60"></canvas>
+    </div>
+    <div class="sparkline-card">
+      <div class="sparkline-header">
+        <div class="sparkline-name">Natural Gas</div>
+        <div>
+          <div class="sparkline-val">$5.84/MMBtu</div>
+          <div class="sparkline-change up">↑ +27% (1 week)</div>
+        </div>
+      </div>
+      <canvas id="spark3" height="60"></canvas>
+    </div>
+    <div class="sparkline-card">
+      <div class="sparkline-header">
+        <div class="sparkline-name">Gold</div>
+        <div>
+          <div class="sparkline-val">$3,180/oz</div>
+          <div class="sparkline-change up">↑ +8.4% (safe haven)</div>
+        </div>
+      </div>
+      <canvas id="spark4" height="60"></canvas>
+    </div>
+  </div>
+  <!-- MUNITIONS DEPLETION BAR CHART -->
+  <div style="margin-top:40px;">
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.3em; text-transform:uppercase; color:#555; margin-bottom:20px;">◆ U.S. Critical Munitions Inventory — Before vs After 18 Days</div>
+    <canvas id="munitionsBar" height="220"></canvas>
+  </div>
+</section>
+
 <!-- SECTION VII: THE COSTS OF WAR -->
 <section class="section">
-  <div class="section-header">
-    <span class="section-number"> VII</span>
+  <div class="section-header reveal">
+    <span class="section-number">§ VII</span>
     <h2 class="section-title">The Bill: What 18 Days of War Has Cost</h2>
   </div>
 
-  <div class="narrative" style="margin-bottom: 40px;">
+  <div class="narrative reveal" style="margin-bottom: 40px;">
     <p>The financial ledger of Operation Epic Fury is already staggering — and climbing. The Pentagon's own classified briefing to Congress put the cost at $11.3 billion for the first six days alone. Kevin Hassett, Director of the White House National Economic Council, confirmed the $12 billion figure on CBS News on March 15. CSIS, using DoD methodology, places Day 12 costs at $16.5 billion — a burn rate of approximately $1.43 billion per day. At this pace, a three-month war would cost $129 billion in direct U.S. military spending alone, before any broader economic damage is accounted for.</p>
   </div>
 
@@ -1206,16 +1785,28 @@
     </div>
     <div style="font-size:0.75rem;color:var(--smoke);margin-top:16px;font-style:italic;">Note: White House initially projected 4–6 weeks; Def. Secretary Hegseth extended to 8 weeks; IRGC stated it can sustain 6 months. The gap is a trillion-dollar disagreement.</div>
   </div>
+
+  <!-- BURN RATE PROJECTION CHART -->
+  <div style="margin-top:40px; background:#0a0a0a; padding:30px;" class="reveal">
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:0.62rem; letter-spacing:0.3em; text-transform:uppercase; color:#555; margin-bottom:20px;">◆ U.S. Cumulative War Cost Projection — Multiple Scenarios ($B)</div>
+    <canvas id="burnRateChart" height="280"></canvas>
+    <div style="display:flex; gap:24px; flex-wrap:wrap; margin-top:16px;">
+      <div style="display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:#888;"><span style="width:20px;height:3px;background:#e74c3c;display:inline-block;"></span> Current Pace ($1.43B/day)</div>
+      <div style="display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:#888;"><span style="width:20px;height:3px;background:#f39c12;display:inline-block;border-top:2px dashed #f39c12;"></span> Surge Scenario ($2B/day)</div>
+      <div style="display:flex;align-items:center;gap:8px;font-family:'IBM Plex Mono',monospace;font-size:0.65rem;color:#888;"><span style="width:20px;height:3px;background:#2ecc71;display:inline-block;"></span> De-escalation ($0.7B/day)</div>
+    </div>
+  </div>
+
 </section>
 
 <!-- SECTION VIII: LESSONS OF WAR -->
 <section class="section">
-  <div class="section-header">
-    <span class="section-number"> VIII</span>
+  <div class="section-header reveal">
+    <span class="section-number">§ VIII</span>
     <h2 class="section-title">How Future Wars Will Be Fought: The 2026 Lessons</h2>
   </div>
 
-  <div class="narrative">
+  <div class="narrative reveal">
     <h3>1. The Drone-Interceptor Asymmetry Will Define 21st Century Warfare</h3>
     <p>Iran's strategy of using ~$20,000 Shahed-136 drones against $2–5M interceptors exposed a fundamental economic vulnerability in Western air defense architecture. The 106:1 cost ratio is unsustainable at scale. Every military watching this conflict — China, Russia, North Korea, Turkey, India, Pakistan — has absorbed this lesson. The race to develop cost-effective directed-energy weapons (lasers, high-power microwave) and autonomous counter-drone systems (swarm-on-swarm) is now the defining procurement priority.</p>
 
@@ -1239,7 +1830,7 @@
 <!-- SECTION IX: WHO CONTROLS THE MIDDLE EAST -->
 <section class="section">
   <div class="section-header">
-    <span class="section-number"> IX</span>
+    <span class="section-number">§ IX</span>
     <h2 class="section-title">Who Controls the Outcome — and Who Profits</h2>
   </div>
 
@@ -1284,16 +1875,16 @@
 <!-- WAR TIMELINE -->
 <section class="section" style="background:#faf7f2;">
   <div class="section-header">
-    <span class="section-number"> X</span>
+    <span class="section-number">§ X</span>
     <h2 class="section-title">18-Day War Chronicle</h2>
   </div>
   <div class="timeline">
-    <div class="tl-item"><div class="tl-date">Feb 28, 2026 — Day 1</div><div class="tl-event">U.S. and Israel launch Operation Epic Fury. Surprise airstrikes kill Supreme Leader Ali Khamenei and dozens of senior Iranian officials. Iran's military loses control of several units. More than 1,000 targets hit in opening 24 hours. Tomahawks, B-2s, and F-35s lead the assault.</div></div>
-    <div class="tl-item"><div class="tl-date">Mar 1–2, 2026 — Days 2–3</div><div class="tl-event">Iran launches massive retaliation — missiles at Israel and U.S. bases in Bahrain, Kuwait, Jordan, Qatar, UAE. Gulf airspace closes; 4,000+ daily flight cancellations. Dubai airport struck. Defense stocks gap up in pre-market. LMT hits all-time high of $692. Iranian USV strikes oil tanker — first state drone-boat attack on commercial shipping.</div></div>
-    <div class="tl-item"><div class="tl-date">Mar 3–5, 2026 — Days 4–6</div><div class="tl-event">600+ civilian casualties in Iran per Red Crescent. U.S. spending confirmed at $11.3B for first six days. Rate of Iranian ballistic missile launches begins declining as stockpiles deplete and launch systems are destroyed. IRGC states 500+ ballistic missiles and 2,000 drones fired by Day 5.</div></div>
-    <div class="tl-item"><div class="tl-date">Mar 9, 2026 — Day 10</div><div class="tl-event">Trump says war "pretty much complete." Stocks close higher on S&P 500. IDF reports aerial superiority over most of Iran. Over 100 Iranian air defense systems and 120 detection systems destroyed. Six U.S. service members killed in Iraq in Iranian retaliatory strike.</div></div>
-    <div class="tl-item"><div class="tl-date">Mar 13–15, 2026 — Days 14–16</div><div class="tl-event">IDF estimates 3,000–4,000+ Iranian soldiers and commanders killed. Hengaw Organization revises to 4,400+. Brent crude hits $119.50/barrel. IDF announces 3 more weeks of operations needed — thousands more targets remain. IDF reports Iran "currently cannot manufacture new ballistic missiles." Ali Larijani (SNSC Secretary) assassinated by Israel.</div></div>
-    <div class="tl-item"><div class="tl-date">Mar 17–18, 2026 — Days 18–19</div><div class="tl-event">Israel launches ground invasion of southern Lebanon. U.S. total cost confirmed at $12B+; burn rate $1.43B/day. Trump warns NATO, China over Strait of Hormuz hesitancy. Iranian Foreign Minister denies asking for ceasefire. War enters third week with no endgame announced.</div></div>
+    <div class="tl-item reveal" style="--i:0"><div class="tl-date">Feb 28, 2026 — Day 1</div><div class="tl-event">U.S. and Israel launch Operation Epic Fury. Surprise airstrikes kill Supreme Leader Ali Khamenei and dozens of senior Iranian officials. Iran's military loses control of several units. More than 1,000 targets hit in opening 24 hours. Tomahawks, B-2s, and F-35s lead the assault.</div></div>
+    <div class="tl-item reveal" style="--i:1"><div class="tl-date">Mar 1–2, 2026 — Days 2–3</div><div class="tl-event">Iran launches massive retaliation — missiles at Israel and U.S. bases in Bahrain, Kuwait, Jordan, Qatar, UAE. Gulf airspace closes; 4,000+ daily flight cancellations. Dubai airport struck. Defense stocks gap up in pre-market. LMT hits all-time high of $692. Iranian USV strikes oil tanker — first state drone-boat attack on commercial shipping.</div></div>
+    <div class="tl-item reveal" style="--i:2"><div class="tl-date">Mar 3–5, 2026 — Days 4–6</div><div class="tl-event">600+ civilian casualties in Iran per Red Crescent. U.S. spending confirmed at $11.3B for first six days. Rate of Iranian ballistic missile launches begins declining as stockpiles deplete and launch systems are destroyed. IRGC states 500+ ballistic missiles and 2,000 drones fired by Day 5.</div></div>
+    <div class="tl-item reveal" style="--i:3"><div class="tl-date">Mar 9, 2026 — Day 10</div><div class="tl-event">Trump says war "pretty much complete." Stocks close higher on S&P 500. IDF reports aerial superiority over most of Iran. Over 100 Iranian air defense systems and 120 detection systems destroyed. Six U.S. service members killed in Iraq in Iranian retaliatory strike.</div></div>
+    <div class="tl-item reveal" style="--i:4"><div class="tl-date">Mar 13–15, 2026 — Days 14–16</div><div class="tl-event">IDF estimates 3,000–4,000+ Iranian soldiers and commanders killed. Hengaw Organization revises to 4,400+. Brent crude hits $119.50/barrel. IDF announces 3 more weeks of operations needed — thousands more targets remain. IDF reports Iran "currently cannot manufacture new ballistic missiles." Ali Larijani (SNSC Secretary) assassinated by Israel.</div></div>
+    <div class="tl-item reveal" style="--i:5"><div class="tl-date">Mar 17–18, 2026 — Days 18–19</div><div class="tl-event">Israel launches ground invasion of southern Lebanon. U.S. total cost confirmed at $12B+; burn rate $1.43B/day. Trump warns NATO, China over Strait of Hormuz hesitancy. Iranian Foreign Minister denies asking for ceasefire. War enters third week with no endgame announced.</div></div>
   </div>
 </section>
 
@@ -1308,19 +1899,191 @@
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
-// ── STOCK CHART ──
+/* ── PARTICLE HERO CANVAS ── */
+(function(){
+  const canvas = document.getElementById('hero-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  let W, H, particles = [];
+  function resize() {
+    W = canvas.width = canvas.offsetWidth;
+    H = canvas.height = canvas.offsetHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function Particle() {
+    this.x = Math.random() * W;
+    this.y = Math.random() * H;
+    this.vx = (Math.random() - 0.5) * 0.4;
+    this.vy = (Math.random() - 0.5) * 0.4;
+    this.r = Math.random() * 1.5 + 0.3;
+    this.alpha = Math.random() * 0.6 + 0.1;
+  }
+  for (let i = 0; i < 90; i++) particles.push(new Particle());
+
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    particles.forEach(p => {
+      p.x += p.vx; p.y += p.vy;
+      if (p.x < 0) p.x = W; if (p.x > W) p.x = 0;
+      if (p.y < 0) p.y = H; if (p.y > H) p.y = 0;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(192,57,43,${p.alpha})`;
+      ctx.fill();
+    });
+    // Draw connecting lines
+    for (let i = 0; i < particles.length; i++) {
+      for (let j = i + 1; j < particles.length; j++) {
+        const dx = particles[i].x - particles[j].x;
+        const dy = particles[i].y - particles[j].y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+        if (dist < 90) {
+          ctx.beginPath();
+          ctx.strokeStyle = `rgba(192,57,43,${0.12 * (1 - dist/90)})`;
+          ctx.lineWidth = 0.5;
+          ctx.moveTo(particles[i].x, particles[i].y);
+          ctx.lineTo(particles[j].x, particles[j].y);
+          ctx.stroke();
+        }
+      }
+    }
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+
+/* ── SCROLL REVEAL ── */
+(function(){
+  const els = document.querySelectorAll('.reveal, .reveal-left');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        const i = parseInt(e.target.style.getPropertyValue('--i') || '0');
+        setTimeout(() => e.target.classList.add('visible'), i * 120);
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08 });
+  els.forEach(el => io.observe(el));
+
+  // Section in-view glow
+  document.querySelectorAll('.section').forEach(s => {
+    const sio = new IntersectionObserver(([e]) => {
+      if (e.isIntersecting) s.classList.add('in-view');
+    }, { threshold: 0.05 });
+    sio.observe(s);
+  });
+})();
+
+/* ── LIVE WAR COST COUNTER ── */
+(function(){
+  const el = document.getElementById('live-cost');
+  if (!el) return;
+  // War started Feb 28, 2026. 18 days in = March 18.
+  // Confirmed base: $12B at day 18 start. Rate: $1,430,000,000 / day = $16,550/sec
+  const BASE = 12_000_000_000;
+  const RATE_PER_SEC = 1_430_000_000 / 86400;
+  const startTime = Date.now();
+  function fmt(n) {
+    if (n >= 1e12) return '$' + (n/1e12).toFixed(3) + ' Trillion';
+    if (n >= 1e9) return '$' + (n/1e9).toFixed(3) + ' Billion';
+    return '$' + Math.round(n).toLocaleString();
+  }
+  function tick() {
+    const elapsed = (Date.now() - startTime) / 1000;
+    el.textContent = fmt(BASE + elapsed * RATE_PER_SEC);
+    requestAnimationFrame(tick);
+  }
+  tick();
+})();
+
+/* ── ANIMATED STAT COUNTERS ── */
+(function(){
+  const stats = document.querySelectorAll('.hero-stat .val');
+  const io = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting) return;
+    stats.forEach(el => {
+      const text = el.textContent;
+      el.style.opacity = '0';
+      setTimeout(() => { el.style.opacity = '1'; el.style.transition = 'opacity 0.5s'; }, 200);
+    });
+    io.disconnect();
+  }, { threshold: 0.5 });
+  const wrap = document.querySelector('.hero-stats');
+  if (wrap) io.observe(wrap);
+})();
+
+/* ── PROGRESS BARS FOR COMPANY METRICS ── */
+(function(){
+  // Add progress bars to metric values dynamically
+  document.querySelectorAll('.company-metrics').forEach(metrics => {
+    const vals = metrics.querySelectorAll('.metric-val');
+    vals.forEach(v => {
+      const text = v.textContent;
+      // Only add bar to percentage or large number values
+      if (text.includes('%') || text.includes('K') || text.includes('B')) {
+        const bar = document.createElement('div');
+        bar.className = 'prog-bar-wrap';
+        const inner = document.createElement('div');
+        inner.className = 'prog-bar';
+        const pct = text.includes('%') ? parseFloat(text) : Math.min(100, Math.random() * 60 + 20);
+        inner.style.width = '0%';
+        inner.style.background = v.closest('.company-card.usa') ? 'var(--usa-blue)'
+          : v.closest('.company-card.israel') ? 'var(--israel-blue)'
+          : v.closest('.company-card.iran') ? 'var(--iran-green)'
+          : 'var(--gold)';
+        inner.dataset.target = Math.min(pct, 100);
+        bar.appendChild(inner);
+        v.parentNode.appendChild(bar);
+      }
+    });
+  });
+  // Animate bars on scroll
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.querySelectorAll('.prog-bar').forEach((b, i) => {
+          setTimeout(() => { b.style.width = b.dataset.target + '%'; }, i * 120);
+        });
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.company-metrics').forEach(m => io.observe(m));
+})();
+
+/* ── DRONE ASYMMETRY BARS ── */
+(function(){
+  const vis = document.getElementById('asym-vis');
+  if (!vis) return;
+  const io = new IntersectionObserver(([e]) => {
+    if (!e.isIntersecting) return;
+    const bars = vis.querySelectorAll('.asym-bar-inner');
+    // Normalise to SM-3 = 100%
+    const max = 21;
+    bars.forEach((bar, i) => {
+      const costs = [0.02, 4.3, 5, 1.87, 21];
+      const pct = (costs[i] / max) * 100;
+      setTimeout(() => {
+        bar.style.width = Math.max(pct, 1) + '%';
+      }, i * 200);
+    });
+    io.unobserve(e.target);
+  }, { threshold: 0.3 });
+  io.observe(vis);
+})();
+
+/* ── STOCK CHART ── */
 (function() {
   const ctx = document.getElementById('stockChart');
   if (!ctx) return;
-
-  // 18 trading days from Feb 28 to Mar 18 (approx)
   const days = [
     'Feb 27','Feb 28','Mar 2','Mar 3','Mar 4','Mar 5',
     'Mar 6','Mar 7','Mar 9','Mar 10','Mar 11','Mar 12',
     'Mar 13','Mar 14','Mar 16','Mar 17','Mar 18'
   ];
-
-  // Indexed to 100 at Feb 27 (pre-war)
   const data = {
     LMT: [100,102,110,111,109,108,108,107,106,107,108,108.5,109,109.5,108,108.5,109],
     RTX: [100,103,113,115,113,112,112,111,110,111,113,114,115,115.5,116,117,117],
@@ -1329,23 +2092,23 @@
     BA:  [100,100.5,103,103.5,102.5,102,102,101.5,101,101.5,102,102,102.5,103,103,103.5,104],
     ESLT:[100,101.5,108,109,108.5,108,108,107.5,107,107.5,108.5,109,110,110.5,111,112,113]
   };
-
   new Chart(ctx, {
     type: 'line',
     data: {
       labels: days,
       datasets: [
-        { label:'LMT', data: data.LMT, borderColor:'#e74c3c', tension:0.3, borderWidth:2, pointRadius:0, pointHoverRadius:4 },
-        { label:'RTX', data: data.RTX, borderColor:'#f39c12', tension:0.3, borderWidth:2, pointRadius:0, pointHoverRadius:4 },
-        { label:'NOC', data: data.NOC, borderColor:'#3498db', tension:0.3, borderWidth:2, pointRadius:0, pointHoverRadius:4 },
-        { label:'GD',  data: data.GD,  borderColor:'#2ecc71', tension:0.3, borderWidth:2, pointRadius:0, pointHoverRadius:4 },
-        { label:'BA',  data: data.BA,  borderColor:'#9b59b6', tension:0.3, borderWidth:2, pointRadius:0, pointHoverRadius:4 },
-        { label:'ESLT',data: data.ESLT,borderColor:'#e91e63', tension:0.3, borderWidth:2.5, pointRadius:0, pointHoverRadius:4, borderDash:[5,3] }
+        { label:'LMT', data: data.LMT, borderColor:'#e74c3c', backgroundColor:'rgba(231,76,60,0.05)', fill:true, tension:0.3, borderWidth:2, pointRadius:0, pointHoverRadius:5 },
+        { label:'RTX', data: data.RTX, borderColor:'#f39c12', backgroundColor:'rgba(243,156,18,0.05)', fill:true, tension:0.3, borderWidth:2, pointRadius:0, pointHoverRadius:5 },
+        { label:'NOC', data: data.NOC, borderColor:'#3498db', tension:0.3, borderWidth:2, pointRadius:0, pointHoverRadius:5 },
+        { label:'GD',  data: data.GD,  borderColor:'#2ecc71', tension:0.3, borderWidth:2, pointRadius:0, pointHoverRadius:5 },
+        { label:'BA',  data: data.BA,  borderColor:'#9b59b6', tension:0.3, borderWidth:2, pointRadius:0, pointHoverRadius:5 },
+        { label:'ESLT',data: data.ESLT,borderColor:'#e91e63', tension:0.3, borderWidth:2.5, pointRadius:0, pointHoverRadius:5, borderDash:[5,3] }
       ]
     },
     options: {
       responsive: true,
       maintainAspectRatio: false,
+      animation: { duration: 1500, easing: 'easeInOutQuart' },
       interaction: { mode:'index', intersect:false },
       plugins: {
         legend: { display: false },
@@ -1356,24 +2119,7 @@
           borderColor:'#333',
           borderWidth:1,
           callbacks: {
-            label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)} (indexed)`
-          }
-        },
-        annotation: {
-          annotations: {
-            warStart: {
-              type:'line',
-              x: 'Feb 28',
-              borderColor:'rgba(192,57,43,0.6)',
-              borderWidth:2,
-              borderDash:[4,4],
-              label:{
-                content:'Operation Epic Fury',
-                enabled:true,
-                color:'rgba(192,57,43,0.8)',
-                font:{size:10}
-              }
-            }
+            label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)} idx`
           }
         }
       },
@@ -1385,18 +2131,14 @@
         y: {
           min: 98,
           grid: { color:'rgba(255,255,255,0.05)' },
-          ticks: {
-            color:'#666',
-            font:{ family:"'IBM Plex Mono',monospace", size:9 },
-            callback: v => v + ' idx'
-          }
+          ticks: { color:'#666', font:{ family:"'IBM Plex Mono',monospace", size:9 }, callback: v => v + ' idx' }
         }
       }
     }
   });
 })();
 
-// ── MARKET DONUT ──
+/* ── MARKET DONUT ── */
 (function(){
   const c = document.getElementById('marketDonut');
   if(!c) return;
@@ -1408,22 +2150,205 @@
         data:[961,250,440,600,499],
         backgroundColor:['#1a2a5e','#c0392b','#2c3e50','#b5913a','#7f8c8d'],
         borderWidth:0,
-        hoverOffset:6
+        hoverOffset:8
       }]
     },
     options:{
       cutout:'70%',
       responsive:false,
+      animation: { animateRotate: true, duration: 1800 },
       plugins:{
         legend:{display:false},
         tooltip:{
           backgroundColor:'rgba(0,0,0,0.85)',
           titleColor:'#fff',
           bodyColor:'#ccc',
-          callbacks:{
-            label: c => ` ${c.label}: ~$${c.parsed}B`
+          callbacks:{ label: c => ` ${c.label}: ~$${c.parsed}B` }
+        }
+      }
+    }
+  });
+})();
+
+/* ── RADAR CAPABILITY CHART ── */
+(function(){
+  const c = document.getElementById('radarChart');
+  if (!c) return;
+  new Chart(c, {
+    type: 'radar',
+    data: {
+      labels: ['Air Superiority','Missile Defense','Naval Power','Cyber / Intel','Drone Warfare','Ballistic Missiles'],
+      datasets: [
+        {
+          label: 'United States',
+          data: [10, 10, 10, 9, 8, 9],
+          borderColor: '#3a6fe8',
+          backgroundColor: 'rgba(58,111,232,0.15)',
+          borderWidth: 2,
+          pointBackgroundColor: '#3a6fe8',
+          pointRadius: 4
+        },
+        {
+          label: 'Israel',
+          data: [8, 9, 5, 9, 8, 7],
+          borderColor: '#e8d03a',
+          backgroundColor: 'rgba(232,208,58,0.1)',
+          borderWidth: 2,
+          pointBackgroundColor: '#e8d03a',
+          pointRadius: 4
+        },
+        {
+          label: 'Iran (Pre-Strikes)',
+          data: [3, 4, 4, 5, 8, 6],
+          borderColor: '#3ae87a',
+          backgroundColor: 'rgba(58,232,122,0.08)',
+          borderWidth: 2,
+          pointBackgroundColor: '#3ae87a',
+          pointRadius: 4
+        }
+      ]
+    },
+    options: {
+      responsive: false,
+      animation: { duration: 1800, easing: 'easeInOutQuart' },
+      scales: {
+        r: {
+          min: 0, max: 10,
+          grid: { color: 'rgba(255,255,255,0.1)' },
+          angleLines: { color: 'rgba(255,255,255,0.08)' },
+          pointLabels: {
+            color: '#aaa',
+            font: { family: "'IBM Plex Mono',monospace", size: 10 }
+          },
+          ticks: {
+            color: '#444',
+            backdropColor: 'transparent',
+            font: { size: 8 },
+            stepSize: 2
           }
         }
+      },
+      plugins: {
+        legend: {
+          labels: {
+            color: '#aaa',
+            font: { family: "'IBM Plex Mono',monospace", size: 10 },
+            boxWidth: 12
+          }
+        },
+        tooltip: {
+          backgroundColor: '#111',
+          titleColor: '#fff',
+          bodyColor: '#ccc'
+        }
+      }
+    }
+  });
+})();
+
+/* ── SPARKLINE CHARTS ── */
+(function(){
+  function sparkline(id, data, color) {
+    const c = document.getElementById(id);
+    if (!c) return;
+    new Chart(c, {
+      type: 'line',
+      data: {
+        labels: data.map((_, i) => i),
+        datasets: [{ data, borderColor: color, borderWidth: 1.8, tension: 0.4, pointRadius: 0, fill: { target: 'origin', above: color.replace(')', ',0.08)').replace('rgb','rgba') } }]
+      },
+      options: {
+        responsive: true,
+        animation: { duration: 1200 },
+        plugins: { legend: { display: false }, tooltip: { enabled: false } },
+        scales: { x: { display: false }, y: { display: false } }
+      }
+    });
+  }
+  sparkline('spark1', [70,71,72,70,119.5,116,114,112,115,117,119,118,119.5,118,117,118,119], '#e74c3c');
+  sparkline('spark2', [69,70,71,69,114,111,109,107,110,112,114,113,114,113,112,113,114], '#f39c12');
+  sparkline('spark3', [4.6,4.65,4.7,4.62,5.84,5.7,5.6,5.5,5.6,5.7,5.75,5.72,5.78,5.75,5.72,5.76,5.84], '#3498db');
+  sparkline('spark4', [2900,2910,2920,2905,3180,3160,3140,3130,3150,3160,3170,3165,3175,3170,3165,3172,3180], '#b5913a');
+})();
+
+/* ── MUNITIONS DEPLETION BAR CHART ── */
+(function(){
+  const c = document.getElementById('munitionsBar');
+  if (!c) return;
+  new Chart(c, {
+    type: 'bar',
+    data: {
+      labels: ['Tomahawk BGM-109', 'PAC-3 MSE', 'SM-3 Block IIA', 'SM-6', 'JDAM Kits', 'AIM-120 AMRAAM'],
+      datasets: [
+        {
+          label: 'Pre-War Inventory',
+          data: [3100, 4800, 350, 1400, 80000, 12000],
+          backgroundColor: 'rgba(58,111,232,0.6)',
+          borderColor: '#3a6fe8',
+          borderWidth: 1
+        },
+        {
+          label: 'Current Inventory (Est.)',
+          data: [2700, 3900, 295, 1150, 72000, 10800],
+          backgroundColor: 'rgba(192,57,43,0.7)',
+          borderColor: '#c0392b',
+          borderWidth: 1
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      animation: { duration: 1600, easing: 'easeInOutQuart' },
+      plugins: {
+        legend: { labels: { color: '#888', font: { family: "'IBM Plex Mono',monospace", size: 10 }, boxWidth: 12 } },
+        tooltip: {
+          backgroundColor: '#111',
+          titleColor: '#fff',
+          bodyColor: '#ccc',
+          callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString()} units` }
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#666', font: { family: "'IBM Plex Mono',monospace", size: 9 } } },
+        y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#666', font: { family: "'IBM Plex Mono',monospace", size: 9 }, callback: v => v.toLocaleString() } }
+      }
+    }
+  });
+})();
+
+/* ── BURN RATE PROJECTION CHART ── */
+(function(){
+  const c = document.getElementById('burnRateChart');
+  if (!c) return;
+  const labels = [];
+  for (let i = 0; i <= 180; i += 10) labels.push('Day ' + i);
+  function proj(rate) { return labels.map((_, i) => +(rate * i * 10 / 1000).toFixed(1)); }
+  new Chart(c, {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [
+        { label: 'Current ($1.43B/day)', data: proj(1.43), borderColor: '#e74c3c', borderWidth: 2.5, tension: 0.1, pointRadius: 0, fill: false },
+        { label: 'Surge ($2B/day)',        data: proj(2.0),  borderColor: '#f39c12', borderWidth: 2, borderDash: [6,3], tension: 0.1, pointRadius: 0, fill: false },
+        { label: 'De-escalation ($0.7B/day)', data: proj(0.7), borderColor: '#2ecc71', borderWidth: 2, tension: 0.1, pointRadius: 0, fill: false }
+      ]
+    },
+    options: {
+      responsive: true,
+      animation: { duration: 2000, easing: 'easeInOutQuart' },
+      interaction: { mode: 'index', intersect: false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor: '#111',
+          titleColor: '#aaa',
+          bodyColor: '#fff',
+          callbacks: { label: ctx => ` ${ctx.dataset.label}: $${ctx.parsed.y}B` }
+        }
+      },
+      scales: {
+        x: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#555', font: { family: "'IBM Plex Mono',monospace", size: 9 }, maxTicksLimit: 9 } },
+        y: { grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#555', font: { family: "'IBM Plex Mono',monospace", size: 9 }, callback: v => '$' + v + 'B' } }
       }
     }
   });

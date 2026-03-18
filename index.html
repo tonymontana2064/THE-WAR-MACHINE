@@ -1,0 +1,1433 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>THE WAR MACHINE | CORE MEDIA</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=IBM+Plex+Mono:wght@300;400;500;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #0d0d0d;
+    --paper: #f2ede4;
+    --red: #c0392b;
+    --gold: #b5913a;
+    --steel: #2c3e50;
+    --smoke: #8a8a8a;
+    --rule: #c8bfb0;
+    --usa-blue: #1a2a5e;
+    --israel-blue: #003f87;
+    --iran-green: #1b5e20;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Libre Baskerville', Georgia, serif;
+    background: var(--paper);
+    color: var(--ink);
+    font-size: 16px;
+    line-height: 1.7;
+  }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    background: var(--ink);
+    color: var(--paper);
+    text-align: center;
+    padding: 28px 20px 18px;
+    border-bottom: 4px solid var(--red);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .masthead .dateline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.68rem;
+    letter-spacing: 0.25em;
+    color: var(--smoke);
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .masthead .brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 900;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--paper);
+  }
+  .masthead .brand span { color: var(--red); }
+  .masthead .edition {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    color: #666;
+    margin-top: 5px;
+    text-transform: uppercase;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--ink);
+    color: var(--paper);
+    padding: 80px 5vw 60px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 2px,
+      rgba(255,255,255,0.015) 2px,
+      rgba(255,255,255,0.015) 4px
+    );
+  }
+  .hero-kicker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .hero-kicker::before {
+    content: '';
+    display: inline-block;
+    width: 30px;
+    height: 2px;
+    background: var(--red);
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900;
+    line-height: 1.05;
+    margin-bottom: 24px;
+    max-width: 900px;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--gold);
+  }
+  .hero-sub {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    color: #aaa;
+    letter-spacing: 0.1em;
+    max-width: 700px;
+    line-height: 1.6;
+    margin-bottom: 40px;
+  }
+  .hero-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1px;
+    background: #333;
+    border: 1px solid #333;
+    max-width: 900px;
+  }
+  .hero-stat {
+    background: #111;
+    padding: 20px 18px;
+    text-align: center;
+  }
+  .hero-stat .val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--red);
+    display: block;
+    line-height: 1.1;
+  }
+  .hero-stat .lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: #666;
+    margin-top: 4px;
+  }
+
+  /* ── LAYOUT ── */
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 5vw; }
+  .section { padding: 70px 5vw; border-bottom: 1px solid var(--rule); }
+  .section:last-child { border-bottom: none; }
+
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 16px;
+    margin-bottom: 50px;
+    padding-bottom: 16px;
+    border-bottom: 3px solid var(--ink);
+  }
+  .section-number {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    color: var(--red);
+    text-transform: uppercase;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.9rem;
+    font-weight: 900;
+    line-height: 1.1;
+  }
+
+  /* ── COMPANY CARDS ── */
+  .company-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 2px;
+    background: var(--rule);
+    border: 2px solid var(--rule);
+  }
+  .company-card {
+    background: var(--paper);
+    padding: 28px 24px;
+    position: relative;
+  }
+  .company-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+  }
+  .company-card.usa::before { background: var(--usa-blue); }
+  .company-card.israel::before { background: var(--israel-blue); }
+  .company-card.iran::before { background: var(--iran-green); }
+
+  .company-flag {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+    opacity: 0.6;
+  }
+  .company-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+  .company-tagline {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    color: var(--smoke);
+    margin-bottom: 16px;
+  }
+  .company-body {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #333;
+    margin-bottom: 18px;
+  }
+  .company-metrics {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--rule);
+    border-top: 1px solid var(--rule);
+    padding-top: 16px;
+    margin-top: 16px;
+  }
+  .metric {
+    padding: 4px 0;
+  }
+  .metric-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .metric-lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--smoke);
+  }
+
+  /* ── STOCK CHART ── */
+  .stock-section { background: var(--ink); color: var(--paper); }
+  .stock-section .section-title { color: var(--paper); }
+  .stock-section .section-header { border-bottom-color: #444; }
+  .stock-section .section-number { color: var(--gold); }
+
+  .stock-chart-wrap {
+    position: relative;
+    height: 320px;
+    margin-bottom: 30px;
+  }
+  .chart-canvas { width: 100%; height: 100%; }
+
+  .stock-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  .legend-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.7rem;
+    letter-spacing: 0.1em;
+    color: #aaa;
+  }
+  .legend-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .stock-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 2px;
+    background: #333;
+    margin-top: 30px;
+  }
+  .stock-card {
+    background: #111;
+    padding: 20px 16px;
+  }
+  .stock-ticker {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    color: #aaa;
+    margin-bottom: 4px;
+  }
+  .stock-price {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--paper);
+    margin-bottom: 2px;
+  }
+  .stock-change {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  .stock-change.up { color: #4caf50; }
+  .stock-change.down { color: var(--red); }
+  .stock-mcap {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    color: #555;
+    margin-top: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+
+  /* ── PULLQUOTE ── */
+  .pullquote {
+    border-left: 5px solid var(--red);
+    padding: 20px 30px;
+    margin: 40px 0;
+    background: rgba(0,0,0,0.03);
+  }
+  .pullquote p {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.35rem;
+    font-style: italic;
+    line-height: 1.5;
+  }
+  .pullquote cite {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    display: block;
+    margin-top: 12px;
+  }
+
+  /* ── COST TABLE ── */
+  .cost-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 2px;
+    background: var(--rule);
+  }
+  .cost-card {
+    background: var(--paper);
+    padding: 30px 24px;
+    text-align: center;
+  }
+  .cost-flag {
+    font-size: 2.5rem;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .cost-entity {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+  .cost-amount {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--red);
+    line-height: 1.1;
+    margin-bottom: 6px;
+  }
+  .cost-note {
+    font-size: 0.8rem;
+    color: var(--smoke);
+    line-height: 1.5;
+  }
+
+  /* ── WEAPONS TABLE ── */
+  .weapons-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin-top: 20px;
+  }
+  .weapons-table th {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: var(--ink);
+    color: var(--paper);
+    padding: 12px 16px;
+    text-align: left;
+  }
+  .weapons-table td {
+    padding: 12px 16px;
+    border-bottom: 1px solid var(--rule);
+    vertical-align: top;
+  }
+  .weapons-table tr:nth-child(even) td { background: rgba(0,0,0,0.02); }
+  .weapons-table tr:hover td { background: rgba(0,0,0,0.05); }
+  .system-name {
+    font-family: 'IBM Plex Mono', monospace;
+    font-weight: 500;
+    font-size: 0.82rem;
+  }
+
+  /* ── NARRATIVE ── */
+  .narrative {
+    max-width: 750px;
+  }
+  .narrative h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 32px 0 12px;
+  }
+  .narrative h3:first-child { margin-top: 0; }
+  .narrative p {
+    font-size: 0.95rem;
+    line-height: 1.8;
+    color: #222;
+    margin-bottom: 16px;
+  }
+
+  /* ── TIMELINE BAR ── */
+  .timeline {
+    position: relative;
+    padding-left: 30px;
+    margin-top: 20px;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 6px; top: 0; bottom: 0;
+    width: 2px;
+    background: var(--rule);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 28px;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    left: -26px; top: 6px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--red);
+    border: 2px solid var(--paper);
+    box-shadow: 0 0 0 2px var(--red);
+  }
+  .tl-date {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 4px;
+  }
+  .tl-event {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: #333;
+  }
+
+  /* ── WINNER ANALYSIS ── */
+  .winner-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2px;
+    background: var(--rule);
+  }
+  @media (max-width: 640px) { .winner-grid { grid-template-columns: 1fr; } }
+  .winner-card {
+    background: var(--paper);
+    padding: 30px 24px;
+  }
+  .winner-label {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    margin-bottom: 10px;
+  }
+  .winner-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 14px;
+  }
+  .winner-body {
+    font-size: 0.88rem;
+    line-height: 1.7;
+    color: #333;
+  }
+
+  /* ── GLOBAL MARKET RING ── */
+  .market-visual {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    align-items: center;
+    margin-top: 20px;
+  }
+  .market-ring-wrap { position: relative; flex-shrink: 0; }
+  .market-ring-wrap canvas { display: block; }
+  .market-ring-label {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+  }
+  .ring-val {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .ring-lbl {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.55rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--smoke);
+    margin-top: 4px;
+  }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--ink);
+    color: #666;
+    padding: 40px 5vw;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    line-height: 1.8;
+    text-transform: uppercase;
+  }
+  .footer strong { color: #999; }
+
+  /* ── UTILITY ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 30px 0;
+    color: var(--smoke);
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+  }
+  .divider::before, .divider::after {
+    content: ''; flex: 1; height: 1px; background: var(--rule);
+  }
+
+  .tag {
+    display: inline-block;
+    padding: 3px 8px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    border: 1px solid currentColor;
+    margin: 2px;
+  }
+  .tag.war { color: var(--red); }
+  .tag.econ { color: var(--gold); }
+  .tag.intel { color: #5b8dd9; }
+
+  @media (max-width: 768px) {
+    .hero h1 { font-size: 2.5rem; }
+    .company-grid { grid-template-columns: 1fr; }
+    .stock-cards { grid-template-columns: repeat(2, 1fr); }
+    .cost-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<header class="masthead">
+  <div class="dateline">Wednesday, March 18, 2026 · War Day 18</div>
+  <div class="brand">CORE <span>MEDIA</span></div>
+  <div class="edition">Special War Economics Edition · By Tony Montana</div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-kicker">Operation Epic Fury · Global Defense Analysis</div>
+  <h1>The <em>War Machine</em>:<br>Who Builds It, Who Profits,<br>Who Controls the World</h1>
+  <p class="hero-sub">
+    A forensic examination of the global defense-industrial complex — American titans, Israeli innovators, Iranian state arsenals — as the 18-day U.S.-Israel-Iran war reshapes the economics of modern conflict and the balance of power in the Middle East.
+  </p>
+  <div class="hero-stats">
+    <div class="hero-stat"><span class="val">18</span><span class="lbl">Days of War</span></div>
+    <div class="hero-stat"><span class="val">$12B+</span><span class="lbl">U.S. Cost So Far</span></div>
+    <div class="hero-stat"><span class="val">2,300+</span><span class="lbl">Killed</span></div>
+    <div class="hero-stat"><span class="val">$119.50</span><span class="lbl">Brent Crude Peak</span></div>
+    <div class="hero-stat"><span class="val">$2.75T</span><span class="lbl">Global Defense Market</span></div>
+    <div class="hero-stat"><span class="val">+17%</span><span class="lbl">LMT Stock Since Strikes</span></div>
+  </div>
+</section>
+
+<!-- SECTION I: AMERICAN TITANS -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-number">§ I</span>
+    <h2 class="section-title">The American Arsenal: Origins, Power & Ownership</h2>
+  </div>
+
+  <div class="narrative" style="margin-bottom: 40px;">
+    <p>The United States defense-industrial complex is the most powerful, most capitalized military supply chain in human history. Five prime contractors dominate: Lockheed Martin, RTX (Raytheon), Northrop Grumman, General Dynamics, and Boeing. Together, they absorb the lion's share of the Pentagon's $961.6 billion FY2026 budget request and provide the weapons now being expended over Iranian skies at approximately $1.43 billion per day.</p>
+    <p>These are not merely contractors — they are the strategic backbone of American geopolitical power projection. When CENTCOM identifies a target in Tehran, the missiles that strike it are Tomahawks built by RTX. The aircraft delivering precision strikes are F-35s built by Lockheed Martin. The intelligence feeding those missions flows through Palantir's AI platforms. The war, in a very real sense, is a product demo.</p>
+  </div>
+
+  <div class="company-grid">
+
+    <!-- LOCKHEED MARTIN -->
+    <div class="company-card usa">
+      <div class="company-flag">🇺🇸 United States · NYSE: LMT</div>
+      <div class="company-name">Lockheed Martin</div>
+      <div class="company-tagline">World's Largest Defense Contractor</div>
+      <div class="company-body">
+        <strong>Founded:</strong> 1995 merger of Lockheed Corp (est. 1912 by Allan & Malcolm Loughead) and Martin Marietta (est. 1961). The Skunk Works facility in Palmdale, California, has birthed every major classified aircraft program since WWII — the U-2, SR-71 Blackbird, F-117 Nighthawk, and F-22 Raptor.<br><br>
+        <strong>Primary Systems:</strong> F-35 Lightning II (world's costliest weapons program at $1.7 trillion lifecycle), F-22 Raptor, C-130J Hercules, Black Hawk helicopter, THAAD missile defense, PAC-3 MSE interceptors, HIMARS, Trident II D5 submarine-launched ballistic missiles, hypersonic glide vehicles.<br><br>
+        <strong>Active in This War:</strong> F-35s leading strike packages over Iran. PAC-3 MSE interceptors defending against Iranian ballistic missiles. THAAD providing theater-level defense. Lockheed signed a 7-year deal in January 2026 to triple PAC-3 production to 2,000/year and quadruple THAAD to 400/year.<br><br>
+        <strong>Controlled By:</strong> Publicly traded. Largest shareholders: Vanguard Group (~8.6%), BlackRock (~7.2%), State Street (~4.7%). CEO: Frank St. John.
+      </div>
+      <div class="company-metrics">
+        <div class="metric"><div class="metric-val">$645</div><div class="metric-lbl">Share Price (Mar 16)</div></div>
+        <div class="metric"><div class="metric-val">~$155B</div><div class="metric-lbl">Market Cap</div></div>
+        <div class="metric"><div class="metric-val">$194B</div><div class="metric-lbl">Order Backlog</div></div>
+        <div class="metric"><div class="metric-val">$75B</div><div class="metric-lbl">2025 Revenue</div></div>
+        <div class="metric"><div class="metric-val">$13.2B</div><div class="metric-lbl">Long-Term Debt</div></div>
+        <div class="metric"><div class="metric-val">122K</div><div class="metric-lbl">Employees</div></div>
+      </div>
+    </div>
+
+    <!-- RTX / RAYTHEON -->
+    <div class="company-card usa">
+      <div class="company-flag">🇺🇸 United States · NYSE: RTX</div>
+      <div class="company-name">RTX Corporation (Raytheon)</div>
+      <div class="company-tagline">Missiles, Air Defense & Jet Engines</div>
+      <div class="company-body">
+        <strong>Founded:</strong> Raytheon founded in 1922 by Vannevar Bush and Laurence Marshall in Cambridge, MA as American Appliance Company. Became the dominant U.S. missile maker post-WWII. Merged with United Technologies in 2020 to form RTX — pairing Raytheon's missiles with Pratt & Whitney engines and Collins Aerospace avionics.<br><br>
+        <strong>Primary Systems:</strong> Tomahawk cruise missile ($1.87M each), Patriot/AMRAAM air defense suite, AIM-120 AMRAAM, AIM-9X Sidewinder, SM-3 / SM-6 interceptors, StormBreaker glide bomb, F135 engine for F-35, NASAMS, Javelin (co-produced with Lockheed).<br><br>
+        <strong>Active in This War:</strong> Tomahawks have been the workhorse weapon. SM-3 and SM-6 interceptors are defending against Iranian ballistic missile barrages. CSIS estimates 319 Tomahawks expended in the first six days alone. RTX received a $256.2M emergency contract in the opening week to accelerate F135 engine production.<br><br>
+        <strong>Controlled By:</strong> Vanguard (~8.5%), BlackRock (~6.9%), Capital Research (~5.1%). CEO: Gregory Hayes.
+      </div>
+      <div class="company-metrics">
+        <div class="metric"><div class="metric-val">$215</div><div class="metric-lbl">Share Price (record high)</div></div>
+        <div class="metric"><div class="metric-val">~$155B</div><div class="metric-lbl">Market Cap</div></div>
+        <div class="metric"><div class="metric-val">$268B</div><div class="metric-lbl">Order Backlog (record)</div></div>
+        <div class="metric"><div class="metric-val">$80B+</div><div class="metric-lbl">2025 Revenue</div></div>
+        <div class="metric"><div class="metric-val">+40%</div><div class="metric-lbl">YTD Stock Gain</div></div>
+        <div class="metric"><div class="metric-val">185K</div><div class="metric-lbl">Employees</div></div>
+      </div>
+    </div>
+
+    <!-- NORTHROP GRUMMAN -->
+    <div class="company-card usa">
+      <div class="company-flag">🇺🇸 United States · NYSE: NOC</div>
+      <div class="company-name">Northrop Grumman</div>
+      <div class="company-tagline">Stealth Bombers, Space & Strategic Deterrence</div>
+      <div class="company-body">
+        <strong>Founded:</strong> Jack Northrop founded Northrop Aircraft in 1939; merged with Grumman (est. 1929) in 1994. Northrop pioneered flying wing technology. Today it is the only builder of U.S. strategic bombers and a cornerstone of the nuclear triad.<br><br>
+        <strong>Primary Systems:</strong> B-2 Spirit stealth bomber, B-21 Raider (operational debut in this conflict), Global Hawk UAV, Triton maritime surveillance drone, E-2D Advanced Hawkeye, Ground-Based Strategic Deterrent (ICBM replacement), LGM-30 Minuteman III maintenance, Sentinel ICBM, James Webb Space Telescope (contractor).<br><br>
+        <strong>Active in This War:</strong> B-21 Raider made its combat debut penetrating hardened Iranian bunkers. B-2 Spirits have been conducting deep-strike missions against underground nuclear sites. NOC stock surged 6% at conflict onset. Analysts set target as high as $785 citing unprecedented demand for deep-strike capabilities.<br><br>
+        <strong>Controlled By:</strong> Vanguard (~8.8%), BlackRock (~7.4%), Wellington Management (~4.2%).
+      </div>
+      <div class="company-metrics">
+        <div class="metric"><div class="metric-val">$733</div><div class="metric-lbl">Share Price (Mar 16)</div></div>
+        <div class="metric"><div class="metric-val">~$44B</div><div class="metric-lbl">Market Cap</div></div>
+        <div class="metric"><div class="metric-val">+6%</div><div class="metric-lbl">War-Onset Surge</div></div>
+        <div class="metric"><div class="metric-val">$41B</div><div class="metric-lbl">2025 Revenue</div></div>
+        <div class="metric"><div class="metric-val">$785</div><div class="metric-lbl">Analyst Price Target</div></div>
+        <div class="metric"><div class="metric-val">95K</div><div class="metric-lbl">Employees</div></div>
+      </div>
+    </div>
+
+    <!-- BOEING DEFENSE -->
+    <div class="company-card usa">
+      <div class="company-flag">🇺🇸 United States · NYSE: BA</div>
+      <div class="company-name">Boeing (Defense Division)</div>
+      <div class="company-tagline">Military Aircraft, Tankers & Naval Systems</div>
+      <div class="company-body">
+        <strong>Founded:</strong> William Boeing founded the Pacific Aero Products Co. in 1916 in Seattle. Built the B-17 Flying Fortress and B-52 Stratofortress. Defense is ~30% of total Boeing revenue today, though the company has faced significant commercial challenges.<br><br>
+        <strong>Primary Systems:</strong> F/A-18 Super Hornet carrier fighter, AH-64 Apache attack helicopter, KC-46 Pegasus tanker, P-8 Poseidon maritime patrol, CH-47 Chinook, EA-18G Growler electronic warfare, ScanEagle drone, Ground-based Midcourse Defense (GMD), Harpoon anti-ship missile, JDAM precision guidance kits.<br><br>
+        <strong>Active in This War:</strong> KC-46 tankers critical for extended-range strike missions. P-8s conducting maritime surveillance as Iranian naval threats emerge in the Gulf. Apache helicopters deployed for special operations support. Boeing CFO spoke at Bank of America Global Industrials Conference on March 17.<br><br>
+        <strong>Controlled By:</strong> Vanguard (~9.1%), BlackRock (~6.5%), Newport Trust (~5.6%).
+      </div>
+      <div class="company-metrics">
+        <div class="metric"><div class="metric-val">$209</div><div class="metric-lbl">Share Price (Mar 16)</div></div>
+        <div class="metric"><div class="metric-val">~$126B</div><div class="metric-lbl">Market Cap</div></div>
+        <div class="metric"><div class="metric-val">$67B</div><div class="metric-lbl">Total Revenue 2025</div></div>
+        <div class="metric"><div class="metric-val">+2.5%</div><div class="metric-lbl">1-Day Change</div></div>
+        <div class="metric"><div class="metric-val">~$55B</div><div class="metric-lbl">Long-Term Debt</div></div>
+        <div class="metric"><div class="metric-val">170K</div><div class="metric-lbl">Employees</div></div>
+      </div>
+    </div>
+
+    <!-- GENERAL DYNAMICS -->
+    <div class="company-card usa">
+      <div class="company-flag">🇺🇸 United States · NYSE: GD</div>
+      <div class="company-name">General Dynamics</div>
+      <div class="company-tagline">Naval Supremacy, Tanks & Defense IT</div>
+      <div class="company-body">
+        <strong>Founded:</strong> 1952 when Electric Boat (submarine builder, est. 1899) reorganized under the General Dynamics name. Has since grown by absorbing Bath Iron Works, Gulfstream Aerospace, CSRA, and dozens of other firms. Builds the Navy's nuclear submarine fleet.<br><br>
+        <strong>Primary Systems:</strong> Virginia-class nuclear-powered attack submarines, Columbia-class ballistic missile submarines, Ohio-class refit, M1A2 Abrams SEPv3 main battle tank, Stryker armored vehicle, Arleigh Burke destroyer components, Gulfstream business jets (commercial), GDIT IT services arm serving NSA/CIA/DoD.<br><br>
+        <strong>Active in This War:</strong> Virginia-class submarines operating in the Persian Gulf. The U.S. Navy submarine IRIS Dena kill (first American submarine sinking of an enemy surface vessel since WWII) was conducted with a Mark 48 torpedo. GD builds and maintains the Virginia-class fleet. GDIT systems providing classified intelligence backbone.<br><br>
+        <strong>Controlled By:</strong> Vanguard (~8.3%), BlackRock (~7.0%), Crown Holdings (founding Crowninshield family).
+      </div>
+      <div class="company-metrics">
+        <div class="metric"><div class="metric-val">$351</div><div class="metric-lbl">Share Price (Mar 16)</div></div>
+        <div class="metric"><div class="metric-val">~$95B</div><div class="metric-lbl">Market Cap</div></div>
+        <div class="metric"><div class="metric-val">$48B</div><div class="metric-lbl">2025 Revenue</div></div>
+        <div class="metric"><div class="metric-val">1.71%</div><div class="metric-lbl">Dividend Yield</div></div>
+        <div class="metric"><div class="metric-val">$9.5B</div><div class="metric-lbl">Long-Term Debt</div></div>
+        <div class="metric"><div class="metric-val">103K</div><div class="metric-lbl">Employees</div></div>
+      </div>
+    </div>
+
+    <!-- PALANTIR -->
+    <div class="company-card usa">
+      <div class="company-flag">🇺🇸 United States · NYSE: PLTR</div>
+      <div class="company-name">Palantir Technologies</div>
+      <div class="company-tagline">AI, Data Intelligence & Battlefield Cognition</div>
+      <div class="company-body">
+        <strong>Founded:</strong> 2003 by Peter Thiel, Alex Karp, Nathan Gettings, Joe Lonsdale, and Stephen Cohen in Denver, CO. Initially funded partly by the CIA's venture arm In-Q-Tel. The name comes from the seeing-stones in Tolkien's <em>Lord of the Rings</em>.<br><br>
+        <strong>Primary Systems:</strong> Palantir Gotham (intelligence, military targeting), Palantir Maven (AI battlefield targeting used by DoD since 2017), AIP (Artificial Intelligence Platform for autonomous decision-making), TITAN ground station for Army long-range precision fires, Foundry platform for data analytics.<br><br>
+        <strong>Active in This War:</strong> Palantir's AI targeting systems are processing satellite and sensor data to generate Iranian military target lists. The company expanded its GE Aerospace partnership on March 12, 2026 to transform military aircraft readiness with AI. Pentagon ordered defense contractors to transition away from Anthropic's AI tools in favor of Palantir's defense-certified stack.<br><br>
+        <strong>Controlled By:</strong> Alex Karp (CEO, ~3.5%), Peter Thiel (~6%), Vanguard (~8.1%). S&P 500 inclusion 2023 dramatically broadened retail ownership.
+      </div>
+      <div class="company-metrics">
+        <div class="metric"><div class="metric-val">~$90B</div><div class="metric-lbl">Market Cap</div></div>
+        <div class="metric"><div class="metric-val">$3.1B</div><div class="metric-lbl">2025 Revenue</div></div>
+        <div class="metric"><div class="metric-val">55%</div><div class="metric-lbl">Gross Margin</div></div>
+        <div class="metric"><div class="metric-val">~$0</div><div class="metric-lbl">Long-Term Debt</div></div>
+        <div class="metric"><div class="metric-val">Top-5</div><div class="metric-lbl">Defense ETF Holding</div></div>
+        <div class="metric"><div class="metric-val">3,800</div><div class="metric-lbl">Employees</div></div>
+      </div>
+    </div>
+
+  </div><!-- end company-grid -->
+
+  <div class="pullquote">
+    <p>"Military power wins battles, but spiritual power wins wars. The question is who controls both the hardware — and the narrative that deploys it."</p>
+    <cite>— Core Media Editorial Analysis, March 2026</cite>
+  </div>
+
+</section>
+
+<!-- SECTION II: WEAPONS DEPLOYED -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-number">§ II</span>
+    <h2 class="section-title">The Arsenal in Action: Weapons Deployed Over Iran</h2>
+  </div>
+  <p style="margin-bottom: 24px; font-size: 0.9rem; color: #444;">U.S. Central Command (CENTCOM) has identified more than 20 weapons systems deployed in the Iran campaign, manufactured primarily by Lockheed, RTX, Boeing, and Northrop Grumman.</p>
+  <table class="weapons-table">
+    <thead>
+      <tr>
+        <th>System</th>
+        <th>Manufacturer</th>
+        <th>Type</th>
+        <th>Unit Cost</th>
+        <th>Role in Conflict</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td class="system-name">F-35 Lightning II</td><td>Lockheed Martin</td><td>Stealth Multi-Role Fighter</td><td>$82M</td><td>Leading strike packages into Iranian airspace</td></tr>
+      <tr><td class="system-name">B-21 Raider</td><td>Northrop Grumman</td><td>Stealth Strategic Bomber</td><td>~$700M</td><td>Combat debut; penetrating hardened bunkers</td></tr>
+      <tr><td class="system-name">B-2 Spirit</td><td>Northrop Grumman</td><td>Stealth Strategic Bomber</td><td>$2.1B</td><td>Deep-strike on underground nuclear sites</td></tr>
+      <tr><td class="system-name">Tomahawk BGM-109</td><td>RTX (Raytheon)</td><td>Cruise Missile</td><td>$1.87M</td><td>319+ fired in first six days; primary standoff weapon</td></tr>
+      <tr><td class="system-name">PAC-3 MSE</td><td>Lockheed Martin</td><td>Interceptor Missile</td><td>$5M</td><td>Defending against Iranian ballistic missile barrages</td></tr>
+      <tr><td class="system-name">THAAD</td><td>Lockheed Martin</td><td>Area Air Defense</td><td>$1.1B/battery</td><td>Terminal-phase interception of Iranian ballistics</td></tr>
+      <tr><td class="system-name">SM-3 Block IIA</td><td>RTX / Raytheon</td><td>BMD Interceptor</td><td>$21M</td><td>Mid-course ballistic missile defense from Navy ships</td></tr>
+      <tr><td class="system-name">SM-6</td><td>RTX / Raytheon</td><td>Multi-Mission Interceptor</td><td>$4.3M</td><td>Cruise missile and drone intercept from destroyers</td></tr>
+      <tr><td class="system-name">ATACMS / PrSM</td><td>Lockheed Martin</td><td>Army Tactical Missile</td><td>$1.5M</td><td>Land-based precision strikes on Iranian targets</td></tr>
+      <tr><td class="system-name">KC-46 Pegasus</td><td>Boeing</td><td>Aerial Refueling Tanker</td><td>$147M</td><td>Enabling extended-range strike and ISR missions</td></tr>
+      <tr><td class="system-name">P-8 Poseidon</td><td>Boeing</td><td>Maritime Patrol Aircraft</td><td>$270M</td><td>Tracking Iranian naval assets, Strait of Hormuz monitoring</td></tr>
+      <tr><td class="system-name">Global Hawk</td><td>Northrop Grumman</td><td>High-Altitude ISR Drone</td><td>$131M</td><td>Persistent surveillance over Iranian territory</td></tr>
+      <tr><td class="system-name">Mark 48 ADCAP Torpedo</td><td>General Dynamics</td><td>Heavyweight Torpedo</td><td>$3.8M</td><td>Sank Iranian frigate IRIS Dena — first U.S. submarine kill since WWII</td></tr>
+      <tr><td class="system-name">Virginia-class SSN</td><td>General Dynamics / HII</td><td>Nuclear Attack Submarine</td><td>$3.4B</td><td>Undersea operations in Persian Gulf / Gulf of Oman</td></tr>
+      <tr><td class="system-name">Palantir MAVEN / AIP</td><td>Palantir Technologies</td><td>AI Targeting Platform</td><td>Classified</td><td>Generating target lists; real-time battle management</td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- SECTION III: STOCK PERFORMANCE -->
+<section class="section stock-section">
+  <div class="section-header">
+    <span class="section-number">§ III</span>
+    <h2 class="section-title">18 Days of War, 18 Days of Stock Gains</h2>
+  </div>
+
+  <p style="color:#aaa; font-size:0.88rem; margin-bottom:30px; font-family:'IBM Plex Mono',monospace; letter-spacing:0.05em;">
+    Defense stocks surged at the onset of Operation Epic Fury (Feb 28, 2026) as markets priced in a multi-year munitions replenishment super-cycle. The Pentagon has already submitted a $50 billion emergency supplemental request under the Middle East Security Emergency Act of 2026.
+  </p>
+
+  <div class="stock-chart-wrap">
+    <canvas id="stockChart" class="chart-canvas"></canvas>
+  </div>
+
+  <div class="stock-legend">
+    <div class="legend-item"><span class="legend-dot" style="background:#e74c3c;"></span> LMT — Lockheed Martin</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#f39c12;"></span> RTX — Raytheon Technologies</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#3498db;"></span> NOC — Northrop Grumman</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#2ecc71;"></span> GD — General Dynamics</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#9b59b6;"></span> BA — Boeing</div>
+    <div class="legend-item"><span class="legend-dot" style="background:#e91e63;"></span> ESLT — Elbit (Israel)</div>
+  </div>
+
+  <div class="stock-cards">
+    <div class="stock-card">
+      <div class="stock-ticker">LMT</div>
+      <div class="stock-price">$645</div>
+      <div class="stock-change up">↑ +17% Since Feb 28 · ATH $692 (Mar 2)</div>
+      <div class="stock-mcap">Mkt Cap ~$155B · Backlog $194B</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-ticker">RTX</div>
+      <div class="stock-price">$215</div>
+      <div class="stock-change up">↑ +40% YTD · Record High</div>
+      <div class="stock-mcap">Mkt Cap ~$155B · Backlog $268B</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-ticker">NOC</div>
+      <div class="stock-price">$733</div>
+      <div class="stock-change up">↑ +6% at War Onset · Target $785</div>
+      <div class="stock-mcap">Mkt Cap ~$44B</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-ticker">GD</div>
+      <div class="stock-price">$351</div>
+      <div class="stock-change up">↑ Compelling Upside (Citi)</div>
+      <div class="stock-mcap">Mkt Cap ~$95B · Div. 1.71%</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-ticker">BA</div>
+      <div class="stock-price">$209</div>
+      <div class="stock-change up">↑ +2.5% (Mar 16)</div>
+      <div class="stock-mcap">Mkt Cap ~$126B</div>
+    </div>
+    <div class="stock-card">
+      <div class="stock-ticker">ESLT</div>
+      <div class="stock-price">$875</div>
+      <div class="stock-change up">↑ +6.6% at War Onset · 52wk High $960</div>
+      <div class="stock-mcap">Mkt Cap ~$40B · Upgraded to Buy</div>
+    </div>
+  </div>
+
+  <div style="margin-top:30px; padding: 20px; border: 1px solid #333; background:#0a0a0a;">
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:#555; margin-bottom:12px;">Key Market Intelligence</div>
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:0.78rem; color:#bbb; line-height:1.8;">
+      ▸ Pentagon emergency $50B supplemental request moves through Congress with "rare bipartisan speed"<br>
+      ▸ War driving defense costs at $1B–$1.43B/day; intercept-to-drone cost ratio 106:1<br>
+      ▸ Citigroup sticks by three missile and defense companies as conflict escalates (Mar 13)<br>
+      ▸ Global X Defense Tech ETF (SHLD) up 59% annualized since inception as of Mar 2, 2026<br>
+      ▸ $3.5 trillion wiped from broader global equities in first week of conflict<br>
+      ▸ Defense ETFs (ITA, PPA, XAR) outperforming S&P 500 by wide margin
+    </div>
+  </div>
+
+</section>
+
+<!-- SECTION IV: ISRAELI COMPANIES -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-number">§ IV</span>
+    <h2 class="section-title">The Israeli Arsenal: Small Nation, Global Edge</h2>
+  </div>
+
+  <div class="narrative" style="margin-bottom:40px;">
+    <p>Israel operates the world's most battle-tested defense industrial ecosystem per capita. With a population of 9 million facing existential threats since 1948, Israeli defense companies have been forced to innovate under live-fire conditions that no sandbox exercise can replicate. Systems like Iron Dome, Arrow, David's Sling, and Merkava represent the highest density of real-world-validated technology on Earth. In January 2026, the Israeli government formalized plans to partially privatize IAI (valued at ~$20B) and Rafael (~$10B) through IPOs on the Tel Aviv Stock Exchange.</p>
+  </div>
+
+  <div class="company-grid">
+
+    <!-- ELBIT SYSTEMS -->
+    <div class="company-card israel">
+      <div class="company-flag">🇮🇱 Israel · NASDAQ: ESLT</div>
+      <div class="company-name">Elbit Systems</div>
+      <div class="company-tagline">Israel's Premier Private Defense Contractor</div>
+      <div class="company-body">
+        <strong>Founded:</strong> 1966, incorporated from earlier defense electronics work. Became dominant after acquiring Israel Military Industries (IMI) from the state in 2018 — a purchase valued at approximately 4× its original acquisition cost by 2026. Headquartered in Haifa.<br><br>
+        <strong>Primary Systems:</strong> Hermes drone family, Iron Fist active protection system for Eitan APC and M113, Iron Sting laser-guided mortar, PULS rocket artillery, Helmet Display and Tracking System (HDTS) for IDF Black Hawks, Skylark III mini-UAV, Spear EW electronic warfare suites, C4ISR systems, night-vision and EO/IR sensors, cyber intelligence platforms, DIRCM countermeasures.<br><br>
+        <strong>Structure:</strong> Publicly traded (NASDAQ/TASE). ~80% of revenue from international customers — one of the most export-oriented defense companies globally. Operates five segments: Aerospace; C4I & Cyber; ISTAR & EW; Land; and Elbit Systems of America (ESA). Backlog as of Q3 2025: $25.2 billion.<br><br>
+        <strong>Active in This War:</strong> Drone reconnaissance; Iron Fist protecting IDF vehicles; C4ISR systems coordinating Israeli airstrikes on Iran; Elbit upgraded to "Strong Buy" by analysts on March 3 citing Israeli defense budget increase of ~$2.9 billion.
+      </div>
+      <div class="company-metrics">
+        <div class="metric"><div class="metric-val">$875</div><div class="metric-lbl">Share Price (Mar 16)</div></div>
+        <div class="metric"><div class="metric-val">~$40B</div><div class="metric-lbl">Market Cap</div></div>
+        <div class="metric"><div class="metric-val">$25.2B</div><div class="metric-lbl">Order Backlog</div></div>
+        <div class="metric"><div class="metric-val">$7.7B</div><div class="metric-lbl">TTM Revenue</div></div>
+        <div class="metric"><div class="metric-val">+49%</div><div class="metric-lbl">2025 Earnings Growth</div></div>
+        <div class="metric"><div class="metric-val">20K</div><div class="metric-lbl">Employees</div></div>
+      </div>
+    </div>
+
+    <!-- IAI -->
+    <div class="company-card israel">
+      <div class="company-flag">🇮🇱 Israel · State-Owned (IPO Planned)</div>
+      <div class="company-name">Israel Aerospace Industries (IAI)</div>
+      <div class="company-tagline">Arrow Missiles, Satellites & Naval Systems</div>
+      <div class="company-body">
+        <strong>Founded:</strong> 1953 as Bedek Aircraft Company — a small maintenance facility for Israel's fledgling air force. Grew into a comprehensive aerospace and defense conglomerate. Wholly state-owned by the Israeli government. Plans to float 25–30% minority stake via Tel Aviv Stock Exchange IPO in 2026, valued at approximately $20 billion.<br><br>
+        <strong>Primary Systems:</strong> Arrow-2 and Arrow-3 ballistic missile defense systems (co-developed with Boeing/U.S. DoD), Barak air defense, Heron medium-altitude UAV, Heron TP heavy MALE UAV, Lavi fighter (cancelled, but led to F-16I upgrades), Harop loitering munition (anti-radiation kamikaze drone), Ofek reconnaissance satellites, Tecsar SAR satellite, Aerostar UAV, Lahav naval combat management systems.<br><br>
+        <strong>Active in This War:</strong> Arrow-3 interceptors defeating Iranian ballistic missiles outside the atmosphere. Arrow 4 system expected to enter deployment within months of conflict. IAI CEO Boaz Levy announced Arrow 5 development program focused on deep-space interception. Germany operates the Arrow system purchased in 2023. IAI has 15,000 employees with ~2,000 called to reserve duty.<br><br>
+        <strong>Valuation:</strong> Estimated ~$20B based on planned IPO. Government is seeking to reduce "bureaucratic glass ceiling."
+      </div>
+      <div class="company-metrics">
+        <div class="metric"><div class="metric-val">~$20B</div><div class="metric-lbl">Est. Valuation (IPO)</div></div>
+        <div class="metric"><div class="metric-val">State</div><div class="metric-lbl">Current Ownership</div></div>
+        <div class="metric"><div class="metric-val">$5.6B</div><div class="metric-lbl">Est. Annual Revenue</div></div>
+        <div class="metric"><div class="metric-val">25–30%</div><div class="metric-lbl">Stake for IPO</div></div>
+        <div class="metric"><div class="metric-val">Arrow-3</div><div class="metric-lbl">Key War System</div></div>
+        <div class="metric"><div class="metric-val">15K</div><div class="metric-lbl">Employees</div></div>
+      </div>
+    </div>
+
+    <!-- RAFAEL -->
+    <div class="company-card israel">
+      <div class="company-flag">🇮🇱 Israel · State-Owned (IPO 2026)</div>
+      <div class="company-name">Rafael Advanced Defense Systems</div>
+      <div class="company-tagline">Iron Dome, David's Sling & Precision Munitions</div>
+      <div class="company-body">
+        <strong>Founded:</strong> 1948 as the Science Corps (HEMED) under David Ben-Gurion, formally renamed Rafael in 1954. Incorporated as a state-owned limited company in 2002 from what had been the Research and Design Directorate. In January 2026, the Israeli government formalized an IPO timeline to sell 25–30% stake on the Tel Aviv Stock Exchange.<br><br>
+        <strong>Primary Systems:</strong> Iron Dome (co-produced with RTX for U.S. deliveries), David's Sling (medium-range defense, co-developed with RTX), Spike anti-tank guided missile family (world's most exported ATGM), Python-5 and Derby air-to-air missiles, Litening targeting pod, Trophy active protection system for Merkava tanks and Namer APCs, Firefly loitering munition (extensive Gaza combat use), Typhoon naval weapon station.<br><br>
+        <strong>Active in This War:</strong> Iron Dome batteries intercepting Iranian drones and short-range rockets. David's Sling engaging medium-range threats. Trophy systems protecting IDF Merkava tanks. Firefly loitering munitions deployed in Lebanese theater as Israel launches ground operations in southern Lebanon (March 17).<br><br>
+        <strong>Valuation:</strong> Estimated ~$10B for planned IPO. Rafael leadership argued state-ownership created "bureaucratic glass ceiling" limiting talent competition.
+      </div>
+      <div class="company-metrics">
+        <div class="metric"><div class="metric-val">~$10B</div><div class="metric-lbl">Est. IPO Valuation</div></div>
+        <div class="metric"><div class="metric-val">State</div><div class="metric-lbl">Current Ownership</div></div>
+        <div class="metric"><div class="metric-val">$3.5B+</div><div class="metric-lbl">Est. Annual Revenue</div></div>
+        <div class="metric"><div class="metric-val">Iron Dome</div><div class="metric-lbl">Flagship Product</div></div>
+        <div class="metric"><div class="metric-val">Spike ATGM</div><div class="metric-lbl">Most Exported System</div></div>
+        <div class="metric"><div class="metric-val">7K+</div><div class="metric-lbl">Employees</div></div>
+      </div>
+    </div>
+
+    <!-- IWI -->
+    <div class="company-card israel">
+      <div class="company-flag">🇮🇱 Israel · Private</div>
+      <div class="company-name">Israel Weapon Industries (IWI)</div>
+      <div class="company-tagline">Tactical Small Arms & Infantry Weapons</div>
+      <div class="company-body">
+        <strong>Founded:</strong> 2005 when the Israeli Ministry of Defense privatized the small arms division of IMI (Israel Military Industries), which was eventually absorbed by Elbit Systems in 2018. IWI was created as a standalone private entity for small arms and tactical weapons.<br><br>
+        <strong>Primary Systems:</strong> Tavor X95 and TAR-21 bullpup assault rifles (standard IDF service weapon), Galil ACE battle rifle, Negev light machine gun, Uzi submachine gun family, ULY (Ultra Light Yoke) modular rifle system, Masada pistol, Jericho pistol series, Carmel assault rifle (next-gen IDF program).<br><br>
+        <strong>Active in This War:</strong> Standard small arms for IDF ground forces in Lebanon operation launched March 17. X95 rifles standard issue for Israeli infantry. IWI exports to over 30 countries and has a U.S. subsidiary manufacturing Tavor and Galil variants for American civilian and law enforcement markets.<br><br>
+        <strong>Ownership:</strong> Private company. Previously majority-owned by SK Group before 2018 IMI absorption. Operates relatively independently within Israel's consolidated defense sector.
+      </div>
+      <div class="company-metrics">
+        <div class="metric"><div class="metric-val">Private</div><div class="metric-lbl">Ownership</div></div>
+        <div class="metric"><div class="metric-val">~$500M</div><div class="metric-lbl">Est. Annual Revenue</div></div>
+        <div class="metric"><div class="metric-val">30+</div><div class="metric-lbl">Export Countries</div></div>
+        <div class="metric"><div class="metric-val">Tavor X95</div><div class="metric-lbl">IDF Standard Rifle</div></div>
+        <div class="metric"><div class="metric-val">Carmel</div><div class="metric-lbl">Next-Gen Program</div></div>
+        <div class="metric"><div class="metric-val">~1,200</div><div class="metric-lbl">Employees</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION V: IRAN'S DEFENSE INDUSTRIAL BASE -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-number">§ V</span>
+    <h2 class="section-title">Iran's Arsenal: The Sanctioned War Machine</h2>
+  </div>
+
+  <div class="narrative" style="margin-bottom:40px;">
+    <p>Iran's defense industry is arguably the most remarkable case study in strategic self-sufficiency under duress in modern history. Facing total Western arms embargoes since 1979, and UN weapons sanctions since 2007, Iran built a military-industrial complex of over 300 entities under the Defense Industries Organization (DIO) umbrella — producing ballistic missiles, drones, submarines, frigates, and increasingly sophisticated electronic warfare systems with minimal foreign input. Iran has fired over 500 ballistic missiles and nearly 2,000 drones since February 28. That is their defense industry's output on display. The IDF now reports that Israeli strikes have severely damaged Iran's ballistic missile production, to the point that it "currently does not have the ability to manufacture any new missiles."</p>
+  </div>
+
+  <div class="company-grid">
+
+    <!-- DIO -->
+    <div class="company-card iran">
+      <div class="company-flag">🇮🇷 Iran · State (MODAFL)</div>
+      <div class="company-name">Defense Industries Organization (DIO)</div>
+      <div class="company-tagline">The Umbrella Conglomerate — 300+ Entities</div>
+      <div class="company-body">
+        <strong>Founded:</strong> Formally consolidated in 1981 during the Iran-Iraq War, when the new revolutionary government unified disparate military factories under a single command. The IRGC was placed in charge of reorganizing it. Origins trace to the Shah's Military Industries Organization (MIO) of 1963 and earlier Shah-era arms factories building German-licensed weapons from the 1940s onward.<br><br>
+        <strong>Primary Products:</strong> Ammunition and artillery (Armament Industries Group — gun howitzers, multiple rocket launchers, sniper rifles, machine guns), armor plating, explosives, military vehicles, light weapons manufacturing across 300+ subsidiary entities. DIO is the logistics and manufacturing backbone for all ground forces.<br><br>
+        <strong>Strategic Role:</strong> Oversees all production, R&D, and procurement under the Ministry of Defense and Armed Forces Logistics (MODAFL). The DIO director is ultimately accountable to the President. Has 35,000+ employees, 30% of whom are university graduates. Sanctioned by UN Security Council (2007) and U.S. Treasury (Executive Order 13382) for WMD program support.
+      </div>
+      <div class="company-metrics">
+        <div class="metric"><div class="metric-val">300+</div><div class="metric-lbl">Subsidiary Entities</div></div>
+        <div class="metric"><div class="metric-val">35K+</div><div class="metric-lbl">Employees</div></div>
+        <div class="metric"><div class="metric-val">State</div><div class="metric-lbl">Ownership (MODAFL)</div></div>
+        <div class="metric"><div class="metric-val">Sanctioned</div><div class="metric-lbl">UN + U.S. Treasury</div></div>
+        <div class="metric"><div class="metric-val">1981</div><div class="metric-lbl">Consolidated</div></div>
+        <div class="metric"><div class="metric-val">✗</div><div class="metric-lbl">Not Publicly Traded</div></div>
+      </div>
+    </div>
+
+    <!-- AIO -->
+    <div class="company-card iran">
+      <div class="company-flag">🇮🇷 Iran · State (IRGC-affiliated)</div>
+      <div class="company-name">Aerospace Industries Organization (AIO)</div>
+      <div class="company-tagline">Ballistic Missiles — Iran's Nuclear-Capable Strike Force</div>
+      <div class="company-body">
+        <strong>Founded:</strong> Emerged from the Revolutionary Guards' missile program during the Iran-Iraq War (1980–88), when Iran began acquiring and reverse-engineering Scud missiles from North Korea and Syria. The AIO formalized control over all R&D and production of Iran's ballistic missile arsenal.<br><br>
+        <strong>Primary Systems (Pre-Strikes):</strong> Shahab-3 (1,300km range, nuclear-capable), Emad (1,700km, maneuverable RV), Sejjil-2 (2,000km solid-fuel), Khorramshahr (2,000km MaRV), Ghadir and Qadr cruise missiles, Haj Qasem (1,400km precision), Dezful (1,000km), Raad air defense missile system, Bavar-373 long-range SAM (Iran's S-300 equivalent).<br><br>
+        <strong>War Status:</strong> The AIO's production facilities have been systematically targeted. Israeli officials stated on March 15 that strikes have eliminated Iran's capacity to manufacture new ballistic missiles. The Shahid Bagheri Industrial Group (solid-fuel) and Shahid Hemat Industrial Group (liquid-fuel) — both AIO divisions — have been struck multiple times. Over 500 ballistic missiles were fired before production was disrupted.
+      </div>
+      <div class="company-metrics">
+        <div class="metric"><div class="metric-val">2,000km</div><div class="metric-lbl">Max Missile Range</div></div>
+        <div class="metric"><div class="metric-val">500+</div><div class="metric-lbl">Missiles Fired (18 days)</div></div>
+        <div class="metric"><div class="metric-val">✗</div><div class="metric-lbl">New Production (Destroyed)</div></div>
+        <div class="metric"><div class="metric-val">Nuclear</div><div class="metric-lbl">Capable Warhead Design</div></div>
+        <div class="metric"><div class="metric-val">IRGC</div><div class="metric-lbl">Operational Command</div></div>
+        <div class="metric"><div class="metric-val">Sanctioned</div><div class="metric-lbl">All Major Divisions</div></div>
+      </div>
+    </div>
+
+    <!-- HESA / IAIO -->
+    <div class="company-card iran">
+      <div class="company-flag">🇮🇷 Iran · State (IAIO / IRGC)</div>
+      <div class="company-name">HESA & IAIO (Drone Complex)</div>
+      <div class="company-tagline">Shahed Drones — Iran's Mass-Casualty Attrition Weapon</div>
+      <div class="company-body">
+        <strong>Founded:</strong> Iran Aircraft Manufacturing Industries (HESA) was founded in 1976 as a joint venture with Northrop of the U.S. and British Aerospace — a founding irony given its current adversarial relationship with both. Post-revolution, HESA pivoted to reverse-engineering and UAV production. Operated under the Iran Aviation Industries Organization (IAIO), a MODAFL subsidiary.<br><br>
+        <strong>Primary Systems:</strong> Shahed-136 loitering munition ("kamikaze drone," ~$20,000/unit, 2,500km range), Shahed-131, Shahed-149 Gaza MALE, Mohajer-6 strike/ISR drone (Qods Industries), Ababil surveillance UAV, Arash kamikaze drone. HESA handles serial production; SAIRC (IRGC-controlled Shahed Aviation Industries Research Center in Isfahan) handles design.<br><br>
+        <strong>War Status:</strong> Nearly 2,000 drones fired by Iran in 18 days. The Shahed-136's ~$20,000 unit cost versus the ~$2M+ cost of interceptors creates the 106:1 cost asymmetry that is the central economic challenge of modern air defense. Iranian drone boats (USV) also struck commercial shipping for the first time on March 1.
+      </div>
+      <div class="company-metrics">
+        <div class="metric"><div class="metric-val">~$20K</div><div class="metric-lbl">Shahed-136 Unit Cost</div></div>
+        <div class="metric"><div class="metric-val">2,000+</div><div class="metric-lbl">Drones Fired (18 days)</div></div>
+        <div class="metric"><div class="metric-val">106:1</div><div class="metric-lbl">Intercept Cost Ratio</div></div>
+        <div class="metric"><div class="metric-val">2,500km</div><div class="metric-lbl">Shahed-136 Range</div></div>
+        <div class="metric"><div class="metric-val">IRGC</div><div class="metric-lbl">Operational Control</div></div>
+        <div class="metric"><div class="metric-val">Isfahan</div><div class="metric-lbl">Production Hub</div></div>
+      </div>
+    </div>
+
+    <!-- IEI / MIO -->
+    <div class="company-card iran">
+      <div class="company-flag">🇮🇷 Iran · State (DIO / MODAFL)</div>
+      <div class="company-name">IEI, MIO & Electronic Warfare Complex</div>
+      <div class="company-tagline">Electronics, Naval & Cyber Warfare</div>
+      <div class="company-body">
+        <strong>Iran Electronics Industries (IEI):</strong> Founded 1973 under the Shah to assemble and repair foreign-delivered weapons. Post-revolution, evolved into Iran's primary electronics and communications defense arm. Produces radar systems, electronic warfare suites, communications equipment, and military computers. U.S. Treasury-sanctioned for supporting IRGC and WMD programs.<br><br>
+        <strong>Marine Industries Organization (MIO):</strong> The DIO division responsible for naval vessels and submarines. Builds the Moudge-class frigates (1,500 tons, anti-ship/SAM capability) and Ghadir-class midget submarines (120-ton, 4 torpedoes). The IRIS Dena frigate sunk by U.S. submarine in the Gulf of Oman (off Sri Lanka) was a Moudge-class vessel.<br><br>
+        <strong>Cyber & Electronic Warfare:</strong> The IRGC has developed significant cyber warfare capabilities — integrating electronic warfare into command structures as a primary tactical domain. Operations in the opening hours of the war involved attempted disruption of Iranian military telecommunications by U.S. Cyber Command and IDF Unit 8200. Iran's defensive cyber units had limited effectiveness against this coordinated onslaught.
+      </div>
+      <div class="company-metrics">
+        <div class="metric"><div class="metric-val">IEI</div><div class="metric-lbl">Electronics (Founded 1973)</div></div>
+        <div class="metric"><div class="metric-val">Moudge-class</div><div class="metric-lbl">Frigate (1 Sunk)</div></div>
+        <div class="metric"><div class="metric-val">Ghadir</div><div class="metric-lbl">Midget Submarines</div></div>
+        <div class="metric"><div class="metric-val">Bavar-373</div><div class="metric-lbl">Long-Range SAM</div></div>
+        <div class="metric"><div class="metric-val">90+</div><div class="metric-lbl">Iranian Vessels Destroyed</div></div>
+        <div class="metric"><div class="metric-val">Sanctioned</div><div class="metric-lbl">All Entities</div></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SECTION VI: GLOBAL DEFENSE MARKET -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-number">§ VI</span>
+    <h2 class="section-title">The Global Defense Market: Size, Demand & Trajectory</h2>
+  </div>
+
+  <div class="market-visual">
+    <div class="market-ring-wrap">
+      <canvas id="marketDonut" width="260" height="260"></canvas>
+      <div class="market-ring-label">
+        <span class="ring-val">$2.75T</span>
+        <span class="ring-lbl">2026 Market</span>
+      </div>
+    </div>
+    <div style="flex:1; min-width:260px;">
+      <div class="narrative">
+        <h3>Scale of the Market</h3>
+        <p>The global defense market is estimated at <strong>$2.75 trillion in 2026</strong>, projected to reach $4.26 trillion by 2035 at a 5% CAGR. World military expenditure reached $2.718 trillion in 2024 — a 9.4% increase, the steepest year-on-year rise since at least 1988. The top 100 arms-producing companies earned $679 billion in 2024 revenues, the highest since SIPRI began tracking in 2002. North America alone accounts for $336 billion (49%) of top-100 arms revenues, with the U.S. fielding 39 of those 100 companies.</p>
+        <h3>Demand Drivers</h3>
+        <p>Russia-Ukraine war (now 4+ years), Israel-Iran conflict, China-Taiwan tensions, NATO's commitment to raise spending from 2% to 5% of GDP by 2035, the Golden Dome missile defense project (~$175B, $25B initial), and the Iran war's $50B emergency supplemental are all structurally elevating demand. The Pentagon's FY2026 budget request is $961.6 billion in base funding — unprecedented.</p>
+        <h3>Supply Constraints</h3>
+        <p>The critical bottleneck is not money — it is production capacity. The U.S. is expending "years' worth" of critical munitions in days. Tomahawk inventory has dropped from ~3,100 to ~2,700 in six days. Patriot missile deliveries total only 172 per year at current production. This replenishment super-cycle — not the war itself — is the decade-long profit driver for defense stocks.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider">Regional Defense Spending Breakdown</div>
+
+  <div class="cost-grid">
+    <div class="cost-card">
+      <span class="cost-flag">🇺🇸</span>
+      <div class="cost-entity">United States</div>
+      <div class="cost-amount">$961B</div>
+      <div class="cost-note">FY2026 DoD budget request. Proposing up to $1.5T by 2027. World's #1 defense spender at ~3.4% of GDP</div>
+    </div>
+    <div class="cost-card">
+      <span class="cost-flag">🇨🇳</span>
+      <div class="cost-entity">China</div>
+      <div class="cost-amount">~$250B</div>
+      <div class="cost-note">Official budget; actual spend estimated significantly higher. Declared neutral in Iran war; nervous about regime change disrupting oil imports</div>
+    </div>
+    <div class="cost-card">
+      <span class="cost-flag">🌍</span>
+      <div class="cost-entity">NATO Alliance</div>
+      <div class="cost-amount">$1.4T</div>
+      <div class="cost-note">Estimated total NATO defense spending 2025. New target: 5% of GDP by 2035 (up from 2%). War dramatically accelerating European rearmament</div>
+    </div>
+    <div class="cost-card">
+      <span class="cost-flag">🌏</span>
+      <div class="cost-entity">Asia-Pacific</div>
+      <div class="cost-amount">~$600B</div>
+      <div class="cost-note">Largest regional market. Japan, South Korea, India, Australia all expanding programs rapidly amid China-Taiwan tensions and Iran war lessons</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION VII: THE COSTS OF WAR -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-number">§ VII</span>
+    <h2 class="section-title">The Bill: What 18 Days of War Has Cost</h2>
+  </div>
+
+  <div class="narrative" style="margin-bottom: 40px;">
+    <p>The financial ledger of Operation Epic Fury is already staggering — and climbing. The Pentagon's own classified briefing to Congress put the cost at $11.3 billion for the first six days alone. Kevin Hassett, Director of the White House National Economic Council, confirmed the $12 billion figure on CBS News on March 15. CSIS, using DoD methodology, places Day 12 costs at $16.5 billion — a burn rate of approximately $1.43 billion per day. At this pace, a three-month war would cost $129 billion in direct U.S. military spending alone, before any broader economic damage is accounted for.</p>
+  </div>
+
+  <div class="cost-grid">
+    <div class="cost-card">
+      <span class="cost-flag">🇺🇸</span>
+      <div class="cost-entity">United States</div>
+      <div class="cost-amount">$12B+</div>
+      <div class="cost-note">Confirmed by Trump economic adviser Kevin Hassett (Mar 15). CSIS estimates $16.5B by Day 12. Burn rate: $1–$1.43B/day. Emergency $50B supplemental requested from Congress</div>
+    </div>
+    <div class="cost-card">
+      <span class="cost-flag">🇮🇱</span>
+      <div class="cost-entity">Israel</div>
+      <div class="cost-amount">~$3–5B</div>
+      <div class="cost-note">Estimated direct military costs including Arrow/Iron Dome intercepts, F-35 sorties, munitions. Israeli defense budget increased by ~$2.9B. Iron Dome intercept: ~$50K per engagement vs $20K drone</div>
+    </div>
+    <div class="cost-card">
+      <span class="cost-flag">🇮🇷</span>
+      <div class="cost-entity">Iran</div>
+      <div class="cost-amount">Incalculable</div>
+      <div class="cost-note">500+ ballistic missiles expended. 2,000+ drones destroyed. 90+ naval vessels lost. Nuclear/missile infrastructure demolished. Oil exports disrupted. Kharg Island facility struck. Regime leadership decapitated</div>
+    </div>
+    <div class="cost-card">
+      <span class="cost-flag">🌍</span>
+      <div class="cost-entity">Global Economy</div>
+      <div class="cost-amount">$3.5T+</div>
+      <div class="cost-note">Wiped from global equities in first week. Brent crude surged from ~$70 to $119.50/barrel. Strait of Hormuz closure disrupted 20% of world oil. 4,000+ daily flight cancellations. Dubai airport damaged</div>
+    </div>
+    <div class="cost-card">
+      <span class="cost-flag">✈️</span>
+      <div class="cost-entity">Aviation & Trade</div>
+      <div class="cost-amount">$Billions</div>
+      <div class="cost-note">Emirates, Etihad, Qatar Airways suspended operations. Gulf state tourism collapsed. Dubai International Airport damaged. Bahrain & Saudi F1 Grand Prix cancelled. Strait of Hormuz oil chokepoint under siege</div>
+    </div>
+    <div class="cost-card">
+      <span class="cost-flag">🛢️</span>
+      <div class="cost-entity">Energy Markets</div>
+      <div class="cost-amount">+70%</div>
+      <div class="cost-note">Brent crude from ~$70 to ~$119/bbl. IEA released 400M barrels (172M from U.S. SPR). Global gas prices spiked 27% in a single week — fastest since Russia's Ukraine invasion (2022)</div>
+    </div>
+  </div>
+
+  <div class="divider">War Cost Projection Timeline</div>
+
+  <div style="background:#f8f4ed; padding:30px; border:1px solid var(--rule); margin-top:10px;">
+    <div style="font-family:'IBM Plex Mono',monospace; font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color:var(--smoke); margin-bottom:16px;">U.S. Direct Military Cost Projections (CSIS / NST Publishing Methodology — $1.43B/day)</div>
+    <div style="display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:16px;">
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--red);">$43B</div><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--smoke);">30-Day Total</div></div>
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--red);">$86B</div><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--smoke);">60-Day Total</div></div>
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--red);">$129B</div><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--smoke);">90-Day Total</div></div>
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--red);">$259B</div><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--smoke);">6-Month Total (IRGC stated duration)</div></div>
+      <div><div style="font-family:'IBM Plex Mono',monospace;font-size:1.1rem;font-weight:700;color:var(--red);">$3.5T+</div><div style="font-family:'IBM Plex Mono',monospace;font-size:0.6rem;letter-spacing:0.15em;text-transform:uppercase;color:var(--smoke);">Global Market Destruction (1 week)</div></div>
+    </div>
+    <div style="font-size:0.75rem;color:var(--smoke);margin-top:16px;font-style:italic;">Note: White House initially projected 4–6 weeks; Def. Secretary Hegseth extended to 8 weeks; IRGC stated it can sustain 6 months. The gap is a trillion-dollar disagreement.</div>
+  </div>
+</section>
+
+<!-- SECTION VIII: LESSONS OF WAR -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-number">§ VIII</span>
+    <h2 class="section-title">How Future Wars Will Be Fought: The 2026 Lessons</h2>
+  </div>
+
+  <div class="narrative">
+    <h3>1. The Drone-Interceptor Asymmetry Will Define 21st Century Warfare</h3>
+    <p>Iran's strategy of using ~$20,000 Shahed-136 drones against $2–5M interceptors exposed a fundamental economic vulnerability in Western air defense architecture. The 106:1 cost ratio is unsustainable at scale. Every military watching this conflict — China, Russia, North Korea, Turkey, India, Pakistan — has absorbed this lesson. The race to develop cost-effective directed-energy weapons (lasers, high-power microwave) and autonomous counter-drone systems (swarm-on-swarm) is now the defining procurement priority.</p>
+
+    <h3>2. Decapitation Strategy — Political Leadership Is the Target</h3>
+    <p>The elimination of Supreme Leader Ali Khamenei in the opening strike of Operation Epic Fury on February 28 marks one of the most consequential single acts in modern warfare. Every nuclear-armed and aspiring-nuclear state — Iran's successors, North Korea, Russia — has now watched the U.S.-Israel axis demonstrate willingness to kill head-of-state targets directly. Defense doctrine worldwide will now explicitly incorporate leadership bunker hardening, dispersal, and succession protocol as tier-one priorities.</p>
+
+    <h3>3. Space Is Now the Decisive Domain</h3>
+    <p>U.S. Space Force orbital sensors detected Iranian ballistic missile launches within milliseconds. SpaceX's Starlink/Starshield constellations provided unjammable communications for autonomous drone swarms. Israel's Ofek-class reconnaissance satellites enabled real-time targeting. For the first time, a space-integrated, AI-driven command-and-control architecture operated as the cognitive layer of a major regional war. Countries without indigenous space capabilities have observed their own strategic blindness in sharp relief.</p>
+
+    <h3>4. AI Targeting at Scale Is Here</h3>
+    <p>Palantir's Maven Smart System and AIP platform processed multi-source intelligence to generate target lists at machine speed. IDF Unit 8200 and U.S. Cyber Command executed coordinated offensive cyber operations against Iranian military telecommunications in the opening hours. This is the first major conflict where AI-generated targeting was central to the opening strike package — not a supplement, but the primary decision architecture.</p>
+
+    <h3>5. Chokepoint Economics: The Strait of Hormuz Will Never Be Taken for Granted Again</h3>
+    <p>The closure of the Strait of Hormuz — through which 20% of global oil transits — sent Brent crude from $70 to $119.50/barrel and wiped $3.5 trillion from global equity markets in a week. Every nation's energy security doctrine, every shipping insurer's actuarial model, and every central bank's inflation framework has been permanently recalibrated. The lesson: the world's most critical chokepoint is a weapon that can be weaponized by a state with nothing left to lose.</p>
+
+    <h3>6. Nations Watching & Learning Most Intensely</h3>
+    <p><strong>China</strong> is studying the decapitation doctrine and space-integrated ISR for Taiwan contingencies. <strong>Russia</strong> is studying drone saturation tactics and Western munitions drawdown rates (which now reduce NATO inventories for Ukraine). <strong>India and Pakistan</strong> are reassessing their bilateral conflict scenarios through the drone-cost lens. <strong>Saudi Arabia and UAE</strong>, having suffered Iranian retaliation strikes on their airports and oil infrastructure, are accelerating THAAD, Patriot, and their own domestic defense industrial programs. <strong>North Korea</strong> is the most dangerous student — watching regime survival under simultaneous air and cyber assault with nuclear weapons in the background.</p>
+  </div>
+</section>
+
+<!-- SECTION IX: WHO CONTROLS THE MIDDLE EAST -->
+<section class="section">
+  <div class="section-header">
+    <span class="section-number">§ IX</span>
+    <h2 class="section-title">Who Controls the Outcome — and Who Profits</h2>
+  </div>
+
+  <div class="winner-grid">
+    <div class="winner-card">
+      <div class="winner-label">Clear Beneficiaries</div>
+      <div class="winner-name">The Defense-Industrial Complex</div>
+      <div class="winner-body">
+        Lockheed Martin, RTX, Northrop Grumman, General Dynamics, Boeing, Elbit Systems, and Palantir are the institutional winners regardless of the war's political outcome. The $50 billion emergency supplemental is a down payment on what CSIS calls a "munitions replenishment super-cycle" lasting 5–10 years. Tomahawk inventories must be rebuilt. THAAD and PAC-3 must be quadrupled in production. The B-21 must now be accelerated. Every fired interceptor must be replaced. Vanguard and BlackRock — the dominant shareholders of all five U.S. primes — are the silent, ultimate beneficiaries. This is not a conspiracy; it is the structural logic of how modern state violence is financed.
+      </div>
+    </div>
+    <div class="winner-card">
+      <div class="winner-label">Geopolitical Winner (Near-Term)</div>
+      <div class="winner-name">Israel</div>
+      <div class="winner-body">
+        If the stated objectives are achieved — the elimination of Iran's nuclear program, degradation of its missile forces, and regime change or weakening — Israel will emerge from this conflict with a generational security dividend. Its air defense systems (Iron Dome, David's Sling, Arrow-2/3) will have been combat-proven at scale, making Elbit, IAI, and Rafael the most battle-validated defense companies on Earth. European nations will accelerate purchases of Arrow, Iron Dome, and Trophy systems. The planned IAI and Rafael IPOs — timing the market perfectly at peak valuation — could generate $30 billion in combined capital for the Israeli state.
+      </div>
+    </div>
+    <div class="winner-card">
+      <div class="winner-label">Strategic Loser (Near-Term)</div>
+      <div class="winner-name">Iran — But Not Permanently</div>
+      <div class="winner-body">
+        Iran has lost its Supreme Leader, its nuclear program infrastructure, most of its missile production capacity, over 90 naval vessels, approximately 3,000–4,400 military personnel, and whatever international goodwill it had accrued through Oman's near-breakthrough nuclear talks (abandoned hours before the strikes began). However: Iran survived the 1980–88 Iraq War, sanctions for 40 years, the 2025 Twelve-Day War, and multiple assassination campaigns. The IRGC declared it can sustain 6 months of combat. A decapitated regime does not equal a dissolved one. The strategic question — who fills the power vacuum — determines whether the U.S.-Israeli gambit produces a peace dividend or a generation of guerrilla insurgency.
+      </div>
+    </div>
+    <div class="winner-card">
+      <div class="winner-label">Uncertain Position</div>
+      <div class="winner-name">United States: Victory or Quagmire?</div>
+      <div class="winner-body">
+        The U.S. spent $12 billion in 18 days with no declared endgame. Senate Minority Leader Schumer called congressional briefings "very unsatisfying." Defense Secretary Hegseth warned bombardment was "about to surge dramatically" — after Trump said the war was "pretty much" complete on March 9. The objectives have shifted from nuclear disarmament to regime change to missile degradation to Strait of Hormuz access. As Senator Elizabeth Warren put it: "$12 billion to bomb Iran while 15 million Americans lost their health care." The war's domestic political cost, the risk of Iranian asymmetric retaliation globally, and the absence of an endgame strategy all threaten to transform a military success into a strategic liability. The ghost of Iraq 2003 haunts every calculation.
+      </div>
+    </div>
+  </div>
+
+  <div class="pullquote" style="margin-top:40px;">
+    <p>"$3.5 trillion was wiped from global financial markets in a single week — a figure that dwarfs the military spend and represents the broader economic damage being inflicted on pension funds, retirement accounts, corporate balance sheets, and sovereign wealth funds simultaneously."</p>
+    <cite>— European Business Magazine, March 2026</cite>
+  </div>
+
+</section>
+
+<!-- WAR TIMELINE -->
+<section class="section" style="background:#faf7f2;">
+  <div class="section-header">
+    <span class="section-number">§ X</span>
+    <h2 class="section-title">18-Day War Chronicle</h2>
+  </div>
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-date">Feb 28, 2026 — Day 1</div><div class="tl-event">U.S. and Israel launch Operation Epic Fury. Surprise airstrikes kill Supreme Leader Ali Khamenei and dozens of senior Iranian officials. Iran's military loses control of several units. More than 1,000 targets hit in opening 24 hours. Tomahawks, B-2s, and F-35s lead the assault.</div></div>
+    <div class="tl-item"><div class="tl-date">Mar 1–2, 2026 — Days 2–3</div><div class="tl-event">Iran launches massive retaliation — missiles at Israel and U.S. bases in Bahrain, Kuwait, Jordan, Qatar, UAE. Gulf airspace closes; 4,000+ daily flight cancellations. Dubai airport struck. Defense stocks gap up in pre-market. LMT hits all-time high of $692. Iranian USV strikes oil tanker — first state drone-boat attack on commercial shipping.</div></div>
+    <div class="tl-item"><div class="tl-date">Mar 3–5, 2026 — Days 4–6</div><div class="tl-event">600+ civilian casualties in Iran per Red Crescent. U.S. spending confirmed at $11.3B for first six days. Rate of Iranian ballistic missile launches begins declining as stockpiles deplete and launch systems are destroyed. IRGC states 500+ ballistic missiles and 2,000 drones fired by Day 5.</div></div>
+    <div class="tl-item"><div class="tl-date">Mar 9, 2026 — Day 10</div><div class="tl-event">Trump says war "pretty much complete." Stocks close higher on S&P 500. IDF reports aerial superiority over most of Iran. Over 100 Iranian air defense systems and 120 detection systems destroyed. Six U.S. service members killed in Iraq in Iranian retaliatory strike.</div></div>
+    <div class="tl-item"><div class="tl-date">Mar 13–15, 2026 — Days 14–16</div><div class="tl-event">IDF estimates 3,000–4,000+ Iranian soldiers and commanders killed. Hengaw Organization revises to 4,400+. Brent crude hits $119.50/barrel. IDF announces 3 more weeks of operations needed — thousands more targets remain. IDF reports Iran "currently cannot manufacture new ballistic missiles." Ali Larijani (SNSC Secretary) assassinated by Israel.</div></div>
+    <div class="tl-item"><div class="tl-date">Mar 17–18, 2026 — Days 18–19</div><div class="tl-event">Israel launches ground invasion of southern Lebanon. U.S. total cost confirmed at $12B+; burn rate $1.43B/day. Trump warns NATO, China over Strait of Hormuz hesitancy. Iranian Foreign Minister denies asking for ceasefire. War enters third week with no endgame announced.</div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div><strong>CORE MEDIA</strong> · Special War Economics Edition · March 18, 2026 · By Tony Montana</div>
+  <div style="margin-top:10px;">
+    Sources: CSIS Analysis (Cancian & Park), NPR Cost Tracker, Al Jazeera War Map, Wikipedia 2026 Iran War, Times of Israel, StockAnalysis.com, Investing.com, MacroTrends, StartUs Insights Defense Report, SIPRI, House of Commons Library Briefing CBP-10521, JNS.org Technology Report, NST Publishing, Elbit Systems SEC Filings, RTX Corp Investor Relations, Northrop Grumman Press, General Dynamics Q4 2025 Earnings, DefenseIndustries.org, GlobalMilitary.net, RSDI Iran Military-Industrial Complex Analysis.
+  </div>
+  <div style="margin-top:10px;">Disclaimer: Market data reflects publicly available figures as of March 16–17, 2026. This publication is for analytical and informational purposes only and does not constitute investment advice. All casualty and cost figures are derived from open-source reporting and carry inherent uncertainty in an active conflict environment.</div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<script>
+// ── STOCK CHART ──
+(function() {
+  const ctx = document.getElementById('stockChart');
+  if (!ctx) return;
+
+  // 18 trading days from Feb 28 to Mar 18 (approx)
+  const days = [
+    'Feb 27','Feb 28','Mar 2','Mar 3','Mar 4','Mar 5',
+    'Mar 6','Mar 7','Mar 9','Mar 10','Mar 11','Mar 12',
+    'Mar 13','Mar 14','Mar 16','Mar 17','Mar 18'
+  ];
+
+  // Indexed to 100 at Feb 27 (pre-war)
+  const data = {
+    LMT: [100,102,110,111,109,108,108,107,106,107,108,108.5,109,109.5,108,108.5,109],
+    RTX: [100,103,113,115,113,112,112,111,110,111,113,114,115,115.5,116,117,117],
+    NOC: [100,101,107,108,107,107,106,106,105,106,107,108,108.5,109,109.5,110,110],
+    GD:  [100,101,106,107,106,106,105.5,105,104.5,105,105.5,106,106.5,107,107,107.5,108],
+    BA:  [100,100.5,103,103.5,102.5,102,102,101.5,101,101.5,102,102,102.5,103,103,103.5,104],
+    ESLT:[100,101.5,108,109,108.5,108,108,107.5,107,107.5,108.5,109,110,110.5,111,112,113]
+  };
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: days,
+      datasets: [
+        { label:'LMT', data: data.LMT, borderColor:'#e74c3c', tension:0.3, borderWidth:2, pointRadius:0, pointHoverRadius:4 },
+        { label:'RTX', data: data.RTX, borderColor:'#f39c12', tension:0.3, borderWidth:2, pointRadius:0, pointHoverRadius:4 },
+        { label:'NOC', data: data.NOC, borderColor:'#3498db', tension:0.3, borderWidth:2, pointRadius:0, pointHoverRadius:4 },
+        { label:'GD',  data: data.GD,  borderColor:'#2ecc71', tension:0.3, borderWidth:2, pointRadius:0, pointHoverRadius:4 },
+        { label:'BA',  data: data.BA,  borderColor:'#9b59b6', tension:0.3, borderWidth:2, pointRadius:0, pointHoverRadius:4 },
+        { label:'ESLT',data: data.ESLT,borderColor:'#e91e63', tension:0.3, borderWidth:2.5, pointRadius:0, pointHoverRadius:4, borderDash:[5,3] }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      interaction: { mode:'index', intersect:false },
+      plugins: {
+        legend: { display: false },
+        tooltip: {
+          backgroundColor:'#111',
+          titleColor:'#aaa',
+          bodyColor:'#fff',
+          borderColor:'#333',
+          borderWidth:1,
+          callbacks: {
+            label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)} (indexed)`
+          }
+        },
+        annotation: {
+          annotations: {
+            warStart: {
+              type:'line',
+              x: 'Feb 28',
+              borderColor:'rgba(192,57,43,0.6)',
+              borderWidth:2,
+              borderDash:[4,4],
+              label:{
+                content:'Operation Epic Fury',
+                enabled:true,
+                color:'rgba(192,57,43,0.8)',
+                font:{size:10}
+              }
+            }
+          }
+        }
+      },
+      scales: {
+        x: {
+          grid: { color:'rgba(255,255,255,0.05)' },
+          ticks: { color:'#666', font:{ family:"'IBM Plex Mono',monospace", size:9 }, maxRotation:45 }
+        },
+        y: {
+          min: 98,
+          grid: { color:'rgba(255,255,255,0.05)' },
+          ticks: {
+            color:'#666',
+            font:{ family:"'IBM Plex Mono',monospace", size:9 },
+            callback: v => v + ' idx'
+          }
+        }
+      }
+    }
+  });
+})();
+
+// ── MARKET DONUT ──
+(function(){
+  const c = document.getElementById('marketDonut');
+  if(!c) return;
+  new Chart(c, {
+    type:'doughnut',
+    data:{
+      labels:['USA','China','NATO Europe','Asia-Pacific','Rest of World'],
+      datasets:[{
+        data:[961,250,440,600,499],
+        backgroundColor:['#1a2a5e','#c0392b','#2c3e50','#b5913a','#7f8c8d'],
+        borderWidth:0,
+        hoverOffset:6
+      }]
+    },
+    options:{
+      cutout:'70%',
+      responsive:false,
+      plugins:{
+        legend:{display:false},
+        tooltip:{
+          backgroundColor:'rgba(0,0,0,0.85)',
+          titleColor:'#fff',
+          bodyColor:'#ccc',
+          callbacks:{
+            label: c => ` ${c.label}: ~$${c.parsed}B`
+          }
+        }
+      }
+    }
+  });
+})();
+</script>
+</body>
+</html>
